@@ -57,7 +57,7 @@ class Player:
 
       print ("you've reached level", self.level, )
       self.print_stats()
-   def equip_item(self,item):
+  def equip_item(self,item):
     if item.item_type == "weapon":
       self.Weapon = item
     elif item.item_type == "armor":
@@ -88,7 +88,7 @@ class Item:
   
 class Weapon(Item):
   def __init__ (self,item_level):
-    item.__init__ (self,item_level)
+    Item.__init__ (self,item_level)
     
     self.weapon = "weapon"
 
@@ -114,7 +114,7 @@ class Armor(Item):
     item.print_stats(self)
     print("defence:",self.defence)
 
-class Monster:
+class Monster():
 
 	hp = 1
 	max_hp = 1
@@ -137,10 +137,10 @@ class Monster:
 	def take_hit(self, damage):
 		self.hp -= damage
 
-	if self.hp > 0:
-		print(self.monster_type, "has", self.hp, "hitpoints left.")
-	else:
-		print(self.monster_type, "was slain")
+		if self.hp > 0:
+			print(self.monster_type, "has", self.hp, "hitpoints left.")
+		else:
+			print(self.monster_type, "was slain")
 
 	def print_stats(self):
 		print(self.monster_type, " - level", self.level)
@@ -152,7 +152,7 @@ class Monster:
 
 class Skeleton(Monster):
 
-	def __init__(self, level)
+	def __init__(self, level):
 		Monster.__init__(self,level)
 
 		self.monster_type = "Skeleton"
@@ -163,7 +163,7 @@ class Skeleton(Monster):
 		self.xp_value = 100 + self.level * 20
 class Troll(Monster):
   
-	def __init__(self, level)
+	def __init__(self, level):
 		Monster.__init__(self,level)
 
 		self.monster_type = "Troll"
@@ -182,164 +182,195 @@ class Troll(Monster):
 			print(self.monster_type, "makes a critical hit!")
 			damage *= 2
 class Battle:
-      self.difficulty = random.randit(1,3)
-    self.monster_list = [ ]
-    self.xp_value = 0
-    monster_types = ["Skeleton", "Troll"]
 
-    for i in range(self.difficulty):
-      monster_choice = random.choice(monster_types)
-      
-      if monster_choice == ["Skeleton"]:
-        self.monster_list.append(Skeleton(self.player.level))
-      elif monster_choice == "Trol"
-        self.moster_list.append(Troll(self.player.level))
+	def __init__(self,player):
+		self.player
+		self.difficulty = random.randint(1,3)
+		self.monster_list = [ ]
+		self.xp_value = 0
+		monster_types = ["Skeleton", "Troll"]
+	
+		for i in range(self.difficulty):
+			monster_choice = random.choice(monster_types)
+	      
+			if monster_choice == ["Skeleton"]:
+				self.monster_list.append(Skeleton(self.player.level))
+			elif monster_choice == "Troll":
+				self.monster_list.append(Troll(self.player.level))
+	    
+				self.xp_value += self.monster_list[i].xp_value
+	      
+	def battle_stats(self):
+		print("You are fighting:")
+
+		for i in range(self.difficulty):
+			print("Enemy",i+1)
+			self.monster_list[i].print_stats()
+			print()
+
+		print("########################")
+		print()
     
-      self.xp_value += self.monster_list[i].xp_value
-      
-  def battle_stats(self):
-    print("You are fighting:")
+	def generate_loot(self):
+		loot = False
+		if self.difficulty == 1:
+			if radom.randint(1,100) <= 25:
+				loot = True
+		elif self.difficulty == 2:
+			if radom.randint(1,100) <=40:
+				loot = True
+		elif self.difficulty == 3:
+			if radom.randint(1,100) <= 60:
+				loot = True
 
-    for i in range(self.difficulty):
-      print("Enemy",i+1)
-      self.monster_list[i].print_stats()
-      print()
+		if loot == True:
+			loot_list = ["Weapon","Armor"]
+			loot_type = Random.choice(loot_list)
 
-    print("########################")
-    print()
-    
-  def generate_loot(self):
-    loot = False
-    if self.difficulty == 1:
-      if radom.randint(1,100) <= 25:
-        loot = Treu
-    elif self.difficulty == 2:
-      if radom.randint(1,100) <=40:
-        loot = Treu
-    elif self.difficulty == 3:
-      if radom.randint(1,100) <= 60:
-        loot = Treu
+			if loot_type == "Weapon":
+				item = Weapon(random.randint(self.player.level,self.player.level + 1))
+				print("Yay! The monsters drop a new wepon!")
+			elif loot_type == "Armor":
+				item = Armor(random.randint(self.player.level,self.player.level + 1))
+				print("Shiny! The monsters drop an armor!")  
 
-    if loot == Treu:
-      loot_list = ["Weapon","Armor"]
-      loot_type = Random.choice(loot_list)
+			item.print_stats()
+			print()
+			print("Your current stats are:")
+			self.player.print_stats()
+			print()
 
-      if loot_type == "Weapon":
-        item = Weapon(random.randint(self.player.level,self.player.level + 1))
-        print("Yay! The monsters drop a new wepon!")
-      elif loot_type == "Armor":
-        item = Armor(random.randint(self.player.level,self.player.level + 1))
-        print("Shiny! The mosters drop an armor!")  
+			choice = imput("Do you want to equiq the new item? (Y/N)")
+			choice = choice.lower()
 
-  	  item.print_stats()
-      print()
-      print("Your current stats are:")
-      self.player.print_stats()
-      print()
-
-      choice = imput("Do you want to equiq the new item? (Y/N)")
-      choice = choice.lower()
-
-      if choice == "n":
-        print("you leave the item on the ground and move on...")
-      else:
-        self.player.equip_item(item)
-        print("You equip the new item Mosters beware!")
-    else:
-      print("You look real hard, but the mosters drop nothing...")
-  def monster_attack(self):
-    for moster in self.monster_list:
-      if moster.hp >0:
-        moster_damage = monster.attack()
-        self.player.take_hit(moster_damage)
+			if choice == "n":
+				print("you leave the item on the ground and move on...")
+			else:
+				self.player.equip_item(item)
+				print("You equip the new item monsters beware!")
+		else:
+			print("You look real hard, but the monsters drop nothing...")
+	def monster_attack(self):
+			for monster in self.monster_list:
+				if monster.hp >0:
+						monster_damage = monster.attack()
+						self.player.take_hit(monster_damage)
         
     
-  def player_attack(self):
-    if len(self.monster_list) >1:
-      max_target = len(self.mosnter_list)
-      target =-1 
-      while target , 1 or target.max_target:
-      target = int(input("Which moster would you like to attack? (1 - ",max_target))
-      target =- 1 
-    else:
-      target = 0
+	def player_attack(self):
+		if len(self.monster_list) >1:
+			max_target = len(self.monster_list)
+			target =-1 
+			while target == 1 or target.max_target:
+				target = int(input("Which monster would you like to attack?",(1 - "+ str(max_target)+")))
+			target -= 1 
+		else:
+			target = 0
       
-    player_damage = self.player.attack()
+		player_damage = self.player.attack()
 
-    if self.monster_list[target].hp >0:
-      self.monster_list[target].take_hit(player_damage)
-    else:
-      print("You hit the dead monster. it is still dead...")
-  def player_heal(self):
-    if rondom.randit(1,100) <= 40:
-      heal_amount = random.randit(self.player.max_hp // 4, self.player.map_hp // 3)
-      self.player.heal(heal_amount)
-    else:
-      print("You tried tot heal yourself, but the spell falled..")
+		if self.monster_list[target].hp >0:
+			self.monster_list[target].take_hit(player_damage)
+		else:
+			print("You hit the dead monster. it is still dead...")
+	def player_heal(self):
+		if rondom.randit(1,100) <= 40:
+			heal_amount = random.randit(self.player.max_hp // 4, self.player.map_hp // 3)
+			self.player.heal(heal_amount)
+		else:
+			print("You tried to heal yourself, but the spell failed..")
     
     
-  def player_run(self):
-    if rondom.randit(1,100) <= 25:
-      print("You ran away as fast as you cou7ld and you lost the monster")
-      return Treu
-    else:
-      print("You tried to run away, but the moster wont let you")
-      return False
+	def player_run(self):
+		if rondom.randit(1,100) <= 25:
+			print("You ran away as fast as you could and you've lost the monster")
+			return True
+		else:
+			print("You tried to run away, but the monster will not let you")
+			return False
       
     
-  def player_quit(self):
-    print("You give up....")
-    self.player.hp = 0
+	def player_quit(self):
+		print("You give up....")
+		self.player.hp = 0
   
     
-  def fight_battle(self):
-    print()
-    print("You are under attack")
+	def fight_battle(self):
+		print()
+		print("You are under attack")
 
-    while True:
-      print()
-      print("######### BATTLE ROUND ##########")
-      self.battle_stats()
+		while True:
+			print()
+			print("######### BATTLE ROUND ##########")
+			self.battle_stats()
 
-      player_action = ""
-      while player_action not in ["S","F", "H","R","Q"]:
-        player_action = input("What will you do? (S)tats, (F)ight,(H)eal,(R)un,(Q)uit").upper()
+			player_action = ""
+			while player_action not in ["S","F", "H","R","Q"]:
+				player_action = input("What will you do? (S)tats, (F)ight,(H)eal,(R)un,(Q)uit").upper()
 
-      if player_action == "S":
-        self.player.print()
+			if player_action == "S":
+				self.player.print()
         
-      elif player_action == "F":
-        self.player_attack
+			elif player_action == "F":
+				self.player_attack
         
-  	    moster_alive = 0
-        for moster in self.monster_list:
-          if moster.hp > 0:
-            mosters_alive += 1
+				monster_alive = 0
+				for monster in self.monster_list:
+					if monster.hp > 0:
+						monsters_alive += 1
 
-        if moster_alive > 0:
-          self.moster_attack()
-        else:
-          print("########################")
-          print("##### YO WON  ##########")
-          print("########################")
+					if monster_alive > 0:
+						self.monster_attack()
+					else:
+						print("########################")
+						print("####### YOU WON ########")
+						print("########################")
 
-          self.player.xp_gain(sel.xp_value)
-          self.generate_loot()
+						self.player.xp_gain(self.xp_value)
+						self.generate_loot()
 
-          break
-      elif player_action == "H":
-        self.player_heal()
-        print()
-        self.moster_atack()
+						break
+			elif player_action == "H":
+				self.player_heal()
+				print()
+				self.monster_atack()
 
-      elif player action == "R":
-        if self.player_run() == True:
-          break
-        else:
-          self.moster_attack()
+			elif player_action == "R":
+				if self.player_run() == True:
+					break
+				else:
+					self.monster_attack()
 
-      elif player_action -- "Q":
-        self.player_quit()
-        break
-      if self.pl
-        
+			elif player_action -- "Q":
+				self.player_quit()
+				break
+			if self.player.hp <= 0:
+				print("###########################")
+				print("#!!!!!!!!!!!!!!!!!!!!!!!!!#")
+				print("#!!!!!!! YOU HAVE DIED !!!#")
+				print("###########################")
+				break
+
+player_name = input("What's your name, noble hero?")
+player = Player(player_name)
+
+print()
+print("Good luck noble", player_name, "everyone is couting on you")
+input ("press enter to enter the dungeon")
+
+battle_count = 0
+while player.hp>0:
+	print()
+	print("_____")
+	print()
+	battle_count +=1
+	print("battle",battle_count)
+
+	battle = battle(player)
+	battle.fight_battle()
+
+print()
+print("You have fought",batle_count, "battles")
+player,print_stats()
+print()
+print("Thanks for playing!")
