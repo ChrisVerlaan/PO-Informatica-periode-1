@@ -57,7 +57,7 @@ class Player:
 
       print ("you've reached level", self.level, )
       self.print_stats()
-   def equip_item(self,item):
+  def equip_item(self,item):
     if item.item_type == "weapon":
       self.Weapon = item
     elif item.item_type == "armor":
@@ -77,6 +77,7 @@ class Player:
     self.weapon.print_stats()
     self.armor.print_stats()
     print("#########################")
+    
 class Item:
   item_type = None
 
@@ -88,12 +89,12 @@ class Item:
   
 class Weapon(Item):
   def __init__ (self,item_level):
-    item.__init__ (self,item_level)
+    Item.__init__ (self,item_level)
     
     self.weapon = "weapon"
 
     weapon_list = ["sword","axe"]
-    self.weapon.list_type = random.choice(weapon_list)
+    self.weapon_type = random.choice(weapon_list)
 
     if self.weapon_type == "sword":
       self.min_damage = self.item_level * 2
@@ -104,6 +105,7 @@ class Weapon(Item):
   def print_stats(self):
     item.print_stats(self)
     print(self.weapon_type,"damage:",self.min_damage, "-", self.max_damage)
+    
 class Armor(Item):
   def __init__(self,item_level):
     Item.__init__(self,item_level)
@@ -116,43 +118,43 @@ class Armor(Item):
 
 class Monster:
 
-	hp = 1
-	max_hp = 1
-	min_damage = 1
-	max_damge = 1
+  hp = 1
+  max_hp = 1
+  min_damage = 1
+  max_damge = 1
 
-	monster_type = None
+  monster_type = None
 
-	xp_value = 1
+  xp_value = 1
 
-	def __init__(self, level):
-		self.level = level
+  def __init__(self, level):
+    self.level = level
 
 
-	def attack(self):
-		damage = random.randint(self.min_damage,self.max_damage)
-		print(self.monster_type, "attacks for ", damage, "damage")
-		return damage
+  def attack(self):
+    damage = random.randint(self.min_damage,self.max_damage)
+    print(self.monster_type, "attacks for ", damage, "damage")
+    return damage
 
-	def take_hit(self, damage):
-		self.hp -= damage
+  def take_hit(self, damage):
+    self.hp -= damage
 
-	if self.hp > 0:
-		print(self.monster_type, "has", self.hp, "hitpoints left.")
-	else:
-		print(self.monster_type, "was slain")
+    if self.hp > 0:
+      print(self.monster_type, "has", self.hp, "hitpoints left.")
+    else:
+      print(self.monster_type, "was slain")
+    
+  def print_stats(self):
+    print(self.monster_type, " - level", self.level)
 
-	def print_stats(self):
-		print(self.monster_type, " - level", self.level)
-
-		if self.hp > 0:
-			print("HP:", self.hp, "/", self.max_hp)
-		else:
-			print("*dead*")
+    if self.hp > 0:
+      print("HP:", self.hp, "/", self.max_hp)
+    else:
+      print("*dead*")
 
 class Skeleton(Monster):
 
-	def __init__(self, level)
+	def __init__(self, level):
 		Monster.__init__(self,level)
 
 		self.monster_type = "Skeleton"
@@ -161,9 +163,10 @@ class Skeleton(Monster):
 		self.min_damage = self.level + 1
 		self.max_damage = self.level * 3
 		self.xp_value = 100 + self.level * 20
+    
 class Troll(Monster):
   
-	def __init__(self, level)
+	def __init__(self, level):
 		Monster.__init__(self,level)
 
 		self.monster_type = "Troll"
@@ -181,8 +184,10 @@ class Troll(Monster):
 		if random.randindt(1,100) <= self.crit_chance:
 			print(self.monster_type, "makes a critical hit!")
 			damage *= 2
+
 class Battle:
-      self.difficulty = random.randit(1,3)
+  def __init__(self,player):
+    self.difficulty = random.randint(1,3)
     self.monster_list = [ ]
     self.xp_value = 0
     monster_types = ["Skeleton", "Troll"]
@@ -192,7 +197,7 @@ class Battle:
       
       if monster_choice == ["Skeleton"]:
         self.monster_list.append(Skeleton(self.player.level))
-      elif monster_choice == "Trol"
+      elif monster_choice == "Trol":
         self.moster_list.append(Troll(self.player.level))
     
       self.xp_value += self.monster_list[i].xp_value
@@ -231,7 +236,7 @@ class Battle:
         item = Armor(random.randint(self.player.level,self.player.level + 1))
         print("Shiny! The mosters drop an armor!")  
 
-  	  item.print_stats()
+      item.print_stats()
       print()
       print("Your current stats are:")
       self.player.print_stats()
@@ -258,9 +263,9 @@ class Battle:
     if len(self.monster_list) >1:
       max_target = len(self.mosnter_list)
       target =-1 
-      while target , 1 or target.max_target:
-      target = int(input("Which moster would you like to attack? (1 - ",max_target))
-      target =- 1 
+      while target < 1 or target.max_target:
+        target = int(input("Which moster would you like to attack? (1 - ",max_target))
+        target =- 1 
     else:
       target = 0
       
@@ -311,7 +316,7 @@ class Battle:
       elif player_action == "F":
         self.player_attack
         
-  	    moster_alive = 0
+        moster_alive = 0
         for moster in self.monster_list:
           if moster.hp > 0:
             mosters_alive += 1
@@ -332,14 +337,36 @@ class Battle:
         print()
         self.moster_atack()
 
-      elif player action == "R":
+      elif player_action == "R":
         if self.player_run() == True:
           break
         else:
           self.moster_attack()
 
-      elif player_action -- "Q":
+      elif player_action == "Q":
         self.player_quit()
         break
-      if self.pl
-        
+     # if self.pl
+
+
+
+player_name = input("Whats your name, noble hero?")
+player = Player(player_name)
+print()
+print( "Good luck noble",player_name, "Everyone is coutning on you")
+input("Press enter to enter the dungeon")
+battle_count = 0 
+while player.hp > 0:
+  print()
+  print("------------")
+  print()
+  battle_count += 1
+  battle = Battle(player)
+  battle.fight_battle()
+  
+print()
+print("You have fought", battle_count, "battels")
+print("You final stats are:")
+plater.print_stats()
+print()
+print("Thanks fot playing")
