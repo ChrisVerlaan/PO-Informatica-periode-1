@@ -3,7 +3,7 @@ import random
 class Player:
 	level = 1
 	xp = 0
-	next_lever_xp = 500
+	next_level_xp = 500
 	hp = 50
 	max_hp = 50
 	name =""
@@ -21,7 +21,7 @@ class Player:
 		
 	def take_hit(self, damage):
 
-		final_damage= damage - self.ermor.defence
+		final_damage= damage - self.armor.defence
 		if final_damage > 0:
 			
 			self.hp -= final_damage
@@ -33,33 +33,33 @@ class Player:
 					print("ouch! you take", final_damage, " damage")
 					print("you have",self.hp,"hp left")
 		else:
-			print("your armor protects you. You have nog damage")
-	def heal(heal,real_amount):
+			print("your armor protects you. You have no damage")
+	def heal(heal,heal_amount):
 		self.hp += heal_amount
 
 		if self.hp > self.max_hp:
 			self.hp = self.max_hp
 
-			print("You heald for",heal_amount, "hp")
+			print("You healed for",heal_amount, "hp")
 			print("you cuuently have", self.hp, "/", self.max_hp , "hp")
 		
 	def xp_gain(self, xp_amount):
 		self.xp += xp_amount
 		print("you have gained",xp_amount,"xp")
 
-		if self.xp >= slef.nexl_level_xp:
+		if self.xp >= self.next_level_xp:
 			self.level +=1
 			self.xp -= self_level_xp
 			
 			self.next_level_xp = int(self.next_level_xp * 1.25)
 			self.max_hp = int(self.max_hp * 1.2)
-			self.hp = self.map_hp
+			self.hp = self.max_hp
 
 			print ("you've reached level", self.level, )
 			self.print_stats()
 	def equip_item(self,item):
 		if item.item_type == "weapon":
-			self.Weapon = item
+			self.weapon = item
 		elif item.item_type == "armor":
 			self.armor = item
 			print_stats()
@@ -70,9 +70,9 @@ class Player:
 		print("##### player stats: #####")
 		print("#########################")
 		print( "name:",self.name)
-		print("level:".self.level)
-		print("hp:", slef.hp,"/",slef.max_hp)
-		print("xp:",slef.hp,"/",slef.next_level_xp)
+		print("level:",self.level)
+		print("hp:", self.hp,"/",self.max_hp)
+		print("xp:",self.hp,"/",self.next_level_xp)
 		print("-------------------------")
 		self.weapon.print_stats()
 		self.armor.print_stats()
@@ -183,7 +183,7 @@ class Troll(Monster):
 	def attack(self):
 		damage = random.randint(self.min_damage, self.max_damage)
 
-		if random.randindt(1,100) <= self.crit_chance:
+		if random.randint(1,100) <= self.crit_chance:
 			print(self.monster_type, "makes a critical hit!")
 			damage *= 2
 
@@ -200,7 +200,7 @@ class Battle:
 		for i in range(self.difficulty):
 			monster_choice = random.choice(monster_types)
 				
-			if monster_choice == ["Skeleton"]:
+			if monster_choice == "Skeleton":
 				self.monster_list.append(Skeleton(self.player.level))
 			elif monster_choice == "Troll":
 				self.monster_list.append(Troll(self.player.level))
@@ -277,7 +277,7 @@ class Battle:
 		
 	def player_attack(self):
 		if len(self.monster_list) >1:
-			max_target = len(self.mosnter_list)
+			max_target = len(self.monster_list)
 			target =-1 
 			while target < 1 or target.max_target:
 				target = int(input("Which monster would you like to attack? (1 - ",max_target))
@@ -293,7 +293,7 @@ class Battle:
 		else:
 			print("You hit the dead monster. it is still dead...")
 	def player_heal(self):
-		if rondom.randit(1,100) <= 40:
+		if random.randit(1,100) <= 40:
 			heal_amount = random.randit(self.player.max_hp // 4, self.player.map_hp // 3)
 			self.player.heal(heal_amount)
 		else:
