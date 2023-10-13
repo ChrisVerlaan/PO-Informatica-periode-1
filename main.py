@@ -193,7 +193,7 @@ class Battle:
 	def __init__(self,player):
 		self.player = player
 		self.difficulty = random.randint(1,3)
-		self.monster_list = [ ]
+		self.monster_list = []
 		self.xp_value = 0
 		monster_types = ["Skeleton", "Troll"]
 	
@@ -265,14 +265,14 @@ class Battle:
 				print("you leave the item on the ground and move on...")
 			else:
 				self.player.equip_item(item)
-				print("You equip the new item Mosters beware!")
+				print("You equip the new item monsters beware!")
 		else:
-			print("You look real hard, but the mosters drop nothing...")
+			print("You look real hard, but the monsters drop nothing...")
 	def monster_attack(self):
-		for moster in self.monster_list:
-			if moster.hp >0:
-				moster_damage = monster.attack()
-				self.player.take_hit(moster_damage)
+		for monster in self.monster_list:
+			if monster.hp >0:
+				monster_damage = monster.attack()
+				self.player.take_hit(monster_damage)
 				
 		
 	def player_attack(self):
@@ -280,7 +280,7 @@ class Battle:
 			max_target = len(self.mosnter_list)
 			target =-1 
 			while target < 1 or target.max_target:
-				target = int(input("Which moster would you like to attack? (1 - ",max_target))
+				target = int(input("Which monster would you like to attack? (1 - ",max_target))
 				target =- 1 
 		else:
 			target = 0
@@ -301,7 +301,7 @@ class Battle:
 		
 		
 	def player_run(self):
-		if rondom.randit(1,100) <= 25:
+		if random.randit(1,100) <= 25:
 			print("You ran away as fast as you could and you've lost the monster")
 			return True
 		else:
@@ -328,10 +328,11 @@ class Battle:
 				player_action = input("What will you do? (S)tats, (F)ight,(H)eal,(R)un,(Q)uit").upper()
 
 			if player_action == "S":
-				self.player.print()
+				self.player.print_stats()
+				print()
 				
 			elif player_action == "F":
-				self.player_attack
+				self.player_attack()
 				
 
 
