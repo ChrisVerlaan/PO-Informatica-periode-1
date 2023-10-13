@@ -16,7 +16,7 @@ class Player:
 		
 	def attack(self):
 		damage = self.level + random.randint(self.weapon.min_damage,self.weapon.max_damage)
-		print(self.name,"attacks stih",self.Weapon_type,"for",damage,"damage")
+		print(self.name,"attacks hits",self.weapon.weapon_type,"for",damage,"damage")
 		return damage
 		
 	def take_hit(self, damage):
@@ -41,7 +41,7 @@ class Player:
 			self.hp = self.max_hp
 
 			print("You healed for",heal_amount, "hp")
-			print("you cuuently have", self.hp, "/", self.max_hp , "hp")
+			print("you currently have", self.hp, "/", self.max_hp , "hp")
 		
 	def xp_gain(self, xp_amount):
 		self.xp += xp_amount
@@ -91,7 +91,7 @@ class Weapon(Item):
 	def __init__ (self,item_level):
 		Item.__init__ (self,item_level)
 		
-		self.weapon = "weapon"
+		self.item_type = "weapon"
 
 		weapon_list = ["sword","axe"]
 		self.weapon_type = random.choice(weapon_list)
@@ -103,7 +103,7 @@ class Weapon(Item):
 			self.min_damage = 1
 			self.max_damage = self.item_level * 4
 	def print_stats(self):
-		item.print_stats(self)
+		Item.print_stats(self)
 		print(self.weapon_type,"damage:",self.min_damage, "-", self.max_damage)
 		
 class Armor(Item):
@@ -113,7 +113,7 @@ class Armor(Item):
 		self.defence = self.item_type *2
 
 	def print_stats(self):
-		item.print_stats(self)
+		Item.print_stats(self)
 		print("defence:",self.defence)
 
 class Monster():
@@ -279,9 +279,9 @@ class Battle:
 		if len(self.monster_list) >1:
 			max_target = len(self.monster_list)
 			target =-1 
-			while target < 1 or target.max_target:
-				target = int(input("Which monster would you like to attack? (1 - ",max_target))
-				target =- 1 
+			while target < 1 or target > max_target:
+				target = int(input("Which monster would you like to attack? (1 - " + str(max_target) +")",))
+				target -= 1 
 		else:
 			target = 0
 
@@ -293,7 +293,7 @@ class Battle:
 		else:
 			print("You hit the dead monster. it is still dead...")
 	def player_heal(self):
-		if random.randit(1,100) <= 40:
+		if random.randint(1,100) <= 40:
 			heal_amount = random.randit(self.player.max_hp // 4, self.player.map_hp // 3)
 			self.player.heal(heal_amount)
 		else:
@@ -339,7 +339,7 @@ class Battle:
 				monster_alive = 0
 				for monster in self.monster_list:
 					if monster.hp > 0:
-						monsters_alive += 1
+						monster_alive += 1
 
 
 					if monster_alive > 0:
@@ -356,7 +356,7 @@ class Battle:
 			elif player_action == "H":
 				self.player_heal()
 				print()
-				self.monster_atack()
+				self.monster_attack()
 
 
 			elif player_action == "R":
@@ -365,7 +365,7 @@ class Battle:
 				else:
 					self.monster_attack()
 
-			elif player_action -- "Q":
+			elif player_action == "Q":
 				self.player_quit()
 				break
 			if self.player.hp <= 0:
@@ -391,10 +391,11 @@ while player.hp>0:
 	print("battle",battle_count)
 
 	battle = Battle(player)
+
 	battle.fight_battle()
 
 print()
 print("You have fought",battle_count, "battles")
-player,print_stats()
+player.print_stats()
 print()
 print("Thanks for playing!")
