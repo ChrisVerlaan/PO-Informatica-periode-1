@@ -191,7 +191,7 @@ class Battle:
 
 
 	def __init__(self,player):
-		self.player
+		self.player = player
 		self.difficulty = random.randint(1,3)
 		self.monster_list = [ ]
 		self.xp_value = 0
@@ -389,11 +389,11 @@ while player.hp>0:
 	battle_count +=1
 	print("battle",battle_count)
 
-	battle = battle(player)
+	battle = Battle(player)
 	battle.fight_battle()
 
 print()
-print("You have fought",batle_count, "battles")
+print("You have fought",battle_count, "battles")
 player,print_stats()
 print()
 print("Thanks for playing!")
