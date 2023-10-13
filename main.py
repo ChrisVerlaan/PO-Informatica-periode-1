@@ -21,7 +21,7 @@ class Player:
 		
 	def take_hit(self, damage):
 
-		final_damage= damage - self.armor.defence
+		final_damage = damage - self.armor.defence
 		if final_damage > 0:
 			
 			self.hp -= final_damage
@@ -34,7 +34,7 @@ class Player:
 					print("you have",self.hp,"hp left")
 		else:
 			print("your armor protects you. You have no damage")
-	def heal(heal,heal_amount):
+	def heal(self,heal_amount):
 		self.hp += heal_amount
 
 		if self.hp > self.max_hp:
@@ -110,7 +110,7 @@ class Armor(Item):
 	def __init__(self,item_level):
 		Item.__init__(self,item_level)
 		self.item_type = "armor"
-		self.defence = self.item_type *2
+		self.defence = item_level *2
 
 	def print_stats(self):
 		Item.print_stats(self)
@@ -182,11 +182,11 @@ class Troll(Monster):
 
 	def attack(self):
 		damage = random.randint(self.min_damage, self.max_damage)
-
+		return damage
 		if random.randint(1,100) <= self.crit_chance:
 			print(self.monster_type, "makes a critical hit!")
 			damage *= 2
-
+			return damage
 class Battle:
 
 
@@ -294,7 +294,7 @@ class Battle:
 			print("You hit the dead monster. it is still dead...")
 	def player_heal(self):
 		if random.randint(1,100) <= 40:
-			heal_amount = random.randit(self.player.max_hp // 4, self.player.map_hp // 3)
+			heal_amount = random.randint(self.player.max_hp // 4 , self.player.max_hp // 3)
 			self.player.heal(heal_amount)
 		else:
 			print("You tried to heal yourself, but the spell failed..")
