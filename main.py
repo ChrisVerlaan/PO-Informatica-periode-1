@@ -157,15 +157,24 @@ class Monster():
 class Skeleton(Monster):
 
 	def __init__(self, level):
-		Monster.__init__(self,level)
 
-		self.monster_type = "Skeleton"
+  		self.monster_type = "Skeleton"
+  
+  		self.hp = self.max_hp = self.level * 15
+  		self.min_damage = self.level + 1
+  		self.max_damage = self.level * 3
+  		self.xp_value = 100 + self.level * 20
+    
+class Spin(Monster):
 
-		self.hp = self.max_hp = self.level * 15
-		self.min_damage = self.level + 1
-		self.max_damage = self.level * 3
-		self.xp_value = 100 + self.level * 20
-		
+  def __init__(self, level):  
+    self.monster_type = "Spin"
+  
+    self.hp = self.max_hp = self.level * 10
+    self.min_damage = self.level + 1
+    self.max_damage = self.level * 2
+    self.xp_value = 100 + self.level * 20
+    
 class Troll(Monster):
 	
 	def __init__(self, level):
@@ -195,17 +204,18 @@ class Battle:
 		self.difficulty = random.randint(1,3)
 		self.monster_list = []
 		self.xp_value = 0
-		monster_types = ["Skeleton", "Troll"]
+		monster_types = ["Skeleton", "Troll","Spin"]
 	
 		for i in range(self.difficulty):
 			monster_choice = random.choice(monster_types)
 				
-			if monster_choice == "Skeleton":
-				self.monster_list.append(Skeleton(self.player.level))
-			elif monster_choice == "Troll":
-				self.monster_list.append(Troll(self.player.level))
-			
-				self.xp_value += self.monster_list[i].xp_value
+		if monster_choice == "Skeleton":
+			self.monster_list.append(Skeleton(self.player.level))
+		elif monster_choice == "Troll":
+			self.monster_list.append(Troll(self.player.level))
+    elif monster_choice == "Spin":
+      self.monster_list.append(Spin(self.player.level))
+    self.xp_value += self.monster_list[i].xp_value
 				
 	def battle_stats(self):
 		print("You are fighting:")
