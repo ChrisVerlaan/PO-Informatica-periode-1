@@ -392,7 +392,7 @@ input ("press enter to enter the dungeon")
 battle_count = 0
 while player.hp>0:
 	print()
-	print("_____")
+	print("______")
 	print()
 	battle_count +=1
 	print("battle",battle_count)
