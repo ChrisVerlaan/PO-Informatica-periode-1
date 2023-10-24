@@ -229,18 +229,18 @@ class Battle:
 	def generate_loot(self):
 		loot = False
 		if self.difficulty == 1:
-			if radom.randint(1,100) <= 25:
+			if random.randint(1,100) <= 25:
 				loot = True
 		elif self.difficulty == 2:
-			if radom.randint(1,100) <=40:
+			if random.randint(1,100) <=40:
 				loot = True
 		elif self.difficulty == 3:
-			if radom.randint(1,100) <= 60:
+			if random.randint(1,100) <= 60:
 				loot = True
 
 		if loot == True:
 			loot_list = ["Weapon","Armor"]
-			loot_type = Random.choice(loot_list)
+			loot_type = random.choice(loot_list)
 
 			if loot_type == "Weapon":
 				item = Weapon(random.randint(self.player.level,self.player.level + 1))
@@ -283,10 +283,10 @@ class Battle:
 				
 		
 	def player_attack(self):
+		target = -1
 		if len(self.monster_list) >1:
 			max_target = len(self.monster_list)
-			target =-1 
-			while target < 1 or target > max_target:
+			while target < 0 or target > max_target:
 				target = int(input("Which monster would you like to attack? (1 - " + str(max_target) +")",))
 				target -= 1 
 		else:
@@ -382,7 +382,7 @@ class Battle:
 				print("###########################")
 				break
 
-player_name = input("What's your name, noble hero?")
+player_name = "J.P. Balkenende"
 player = Player(player_name)
 
 print()
