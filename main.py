@@ -205,7 +205,7 @@ class Battle:
 	
 		for i in range(self.difficulty):
 			monster_choice = random.choice(monster_types)
-				
+			i -= 1
 		if monster_choice == "Skeleton":
 			self.monster_list.append(Skeleton(self.player.level))   
 		elif monster_choice == "Troll":
