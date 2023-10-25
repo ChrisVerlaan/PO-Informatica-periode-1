@@ -1,5 +1,51 @@
 import random 
 
+here = "Nederland"
+europa = {
+	"Nederland": {
+		"transitions": {
+			"oosten" : "Duitsland",
+			"zuiden" : "Frankrijk"
+		},
+	},
+	"Duitsland" : {
+		"transitions": {
+			"westen": "Nederland",
+			"noorden": "Scandinavie"
+			
+		},
+	},
+	"Frankrijk" : {
+		"transitions": {
+			"noorden": "Nederland",
+			"westen" : "Engeland",
+			"zuiden" : "Spanje"
+		},
+	},
+	"Spanje" : {
+		"transitions": {
+			"noorden": "Frankrijk"
+			
+		},
+
+	},
+	
+	"Engeland": {
+		"transitions": {
+			"oosten": "Frankrijk"
+			
+		},
+	},
+	"Scandinavie": {
+		"transitions": {
+			"zuiden" : "Duitsland"
+		},
+	},
+
+}
+
+
+
 class Player:
 	level = 1
 	xp = 0
