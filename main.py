@@ -154,32 +154,32 @@ class Monster():
 		else:
 			print("*dead*")
 
-class Skeleton(Monster):
+class Wolf(Monster):
 
 	def __init__(self, level):
-		self.monster_type = "Skeleton"
+		self.monster_type = "Wolf"
 		self.level = level
 		self.hp = self.max_hp = self.level * 15
 		self.min_damage = self.level + 1
 		self.max_damage = self.level * 3
 		self.xp_value = 100 + self.level * 20
 		
-class Spin(Monster):
+class Katholieke(Monster):
 
 	def __init__(self, level):  
-		self.monster_type = "Spin"
+		self.monster_type = "Katholieke"
 		self.level = level
 		self.hp = self.max_hp = self.level * 10
 		self.min_damage = self.level + 1
 		self.max_damage = self.level * 2
 		self.xp_value = 100 + self.level * 20
 		
-class Troll(Monster):
+class Zwerver(Monster):
 	
 	def __init__(self, level):
 		Monster.__init__(self,level)
 
-		self.monster_type = "Troll"
+		self.monster_type = "Zwerver"
 		self.level = level
 		self.hp = self.max_hp = self.level * 20
 		self.min_damage = 1
@@ -201,24 +201,25 @@ class Battle:
 		self.difficulty = random.randint(1,4)
 		self.monster_list = []
 		self.xp_value = 0
-		monster_types = ["Skeleton", "Troll","Spin"]
+		monster_types = ["Wolf", "Zwerver","Katholieke"]
 	
 		for i in range(self.difficulty):
 			monster_choice = random.choice(monster_types)
-			i -= 1
-		if monster_choice == "Skeleton":
-			self.monster_list.append(Skeleton(self.player.level))   
-		elif monster_choice == "Troll":
-			self.monster_list.append(Troll(self.player.level))
-		elif monster_choice == "Spin":
-			self.monster_list.append(Spin(self.player.level))
-		self.xp_value += self.monster_list[i].xp_value
+			if monster_choice == "Wolf":
+				self.monster_list.append(Wolf(self.player.level))   
+			elif monster_choice == "Zwerver":
+				self.monster_list.append(Zwerver(self.player.level))
+			elif monster_choice == "Katholieke":
+				self.monster_list.append(Katholieke(self.player.level))
+			
+			self.xp_value += self.monster_list[i].xp_value
 				
 	def battle_stats(self):
 		print("You are fighting:")
 
 		for i in range(self.difficulty):
-			print("Enemy",i+1)
+			i -= 1
+			print("Enemy" + str(i))
 			self.monster_list[i].print_stats()
 			print()
 
@@ -386,8 +387,28 @@ player_name = "J.P. Balkenende"
 player = Player(player_name)
 
 print()
-print("Good luck noble", player_name, "everyone is couting on you")
-input ("press enter to enter the dungeon")
+print("Veel succes,", player_name + ", heel Nederland rekent op je !!!!!")
+print()
+print('''       _,--',   _._.--._____
+ .--.--';_'-.', ";_      _.,-'
+.'--'.  _.'    {`'-;_ .-.>.'
+      '-:_      )  / `' '=.
+        ) >     {_/,     /~)
+        |/               `^ .''')
+print()
+print('''             _._                                        _._
+      _.----|   |--------------------------------------|   |----._
+   .-'      |.-.|      |     ||   || | | | | | | |     |.-.|      '-.
+ .'        __| |__     |C|S|G|/   \|P|R|O|D|U|C|T|    __| |__        '.
+|         |o_| |_o|    |_|_|_|     |_|_|_|_|_|_|_|   |o_| |_o|         |
+|         ||_ @ _||  _    _ ___ _  _  _  _  _  _  _  ||_ @ _||         |
+|         |o_| |_o| |_ |/| | | |_ |_|| || ||_)| \|_  |o_| |_o|         |
+ '.          | |    __||\|-| | |_ |_||_||-||\_|_/__|    | |          .'
+   '-._     |'-'|                                      |'-'|     _.-'
+       '----|_ _|--------------------------------------|_ _|----''')
+print()
+print()
+input ("Druk op enter om te beginnen...")
 
 battle_count = 0
 while player.hp>0:
