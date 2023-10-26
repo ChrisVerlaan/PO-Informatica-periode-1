@@ -1,5 +1,21 @@
-import random 
+### Imports
 
+from termcolor import colored
+
+import time
+
+import random
+
+import sys
+
+import os
+
+
+
+### Standaard Variables
+
+
+player_name = "J.P. Balkenende"
 here = "Nederland"
 europa = {
 	"Nederland": {
@@ -44,8 +60,21 @@ europa = {
 
 }
 
+### Standaard Defs
 
 
+def txt(text):
+	for x in colored(text, "white"): # Prints the text in wit
+		sys.stdout.write(x) 
+		sys.stdout.flush()
+		time.sleep(0.03) # Zit een tijd tussen van 0.03 voor elke letter
+	print()
+	return ""
+
+
+### Classes
+
+# Class voor de speler
 class Player:
 	level = 1
 	xp = 0
@@ -115,7 +144,8 @@ class Player:
 		print("#########################")
 		print("##### player stats: #####")
 		print("#########################")
-		print( "name:",self.name)
+		print()
+		( "name:",self.name)
 		print("level:",self.level)
 		print("hp:", self.hp,"/",self.max_hp)
 		print("xp:",self.hp,"/",self.next_level_xp)
@@ -123,7 +153,10 @@ class Player:
 		self.weapon.print_stats()
 		self.armor.print_stats()
 		print("#########################")
-		
+
+
+
+# Class voor items
 class Item:
 	item_type = None
 
@@ -132,7 +165,8 @@ class Item:
 	def print_stats(self):
 		print(self.item_type, "level:",self.item_level)
 
-	
+
+# Class voor weapons
 class Weapon(Item):
 	def __init__ (self,item_level):
 		Item.__init__ (self,item_level)
@@ -151,7 +185,10 @@ class Weapon(Item):
 	def print_stats(self):
 		Item.print_stats(self)
 		print(self.weapon_type,"damage:",self.min_damage, "-", self.max_damage)
-		
+
+
+
+# Class voor armor
 class Armor(Item):
 	def __init__(self,item_level):
 		Item.__init__(self,item_level)
@@ -162,6 +199,8 @@ class Armor(Item):
 		Item.print_stats(self)
 		print("defence:",self.defence)
 
+
+# Class voor monsters in het algemeen
 class Monster():
 
 	hp = 1
@@ -200,6 +239,8 @@ class Monster():
 		else:
 			print("*dead*")
 
+
+# Class voor wolven
 class Wolf(Monster):
 
 	def __init__(self, level):
@@ -209,7 +250,9 @@ class Wolf(Monster):
 		self.min_damage = self.level + 1
 		self.max_damage = self.level * 3
 		self.xp_value = 100 + self.level * 20
-		
+
+
+# Class voor Katholieke
 class Katholieke(Monster):
 
 	def __init__(self, level):  
@@ -219,7 +262,9 @@ class Katholieke(Monster):
 		self.min_damage = self.level + 1
 		self.max_damage = self.level * 2
 		self.xp_value = 100 + self.level * 20
-		
+
+
+# Class voor zwervers
 class Zwerver(Monster):
 	
 	def __init__(self, level):
@@ -240,6 +285,9 @@ class Zwerver(Monster):
 			print(self.monster_type, "makes a critical hit!")
 			damage *= 2
 			return damage
+
+
+# Class voor battles
 class Battle:
 
 	def __init__(self,player):
@@ -429,11 +477,15 @@ class Battle:
 				print("###########################")
 				break
 
-player_name = "J.P. Balkenende"
-player = Player(player_name)
 
+
+
+### Gamecode
+
+
+player = Player(player_name)
 print()
-print("Veel succes,", player_name + ", heel Nederland rekent op je !!!!!")
+txt("Veel succes, " + player_name + ", heel Nederland rekent op je !!!!!")
 print()
 print('''       _,--',   _._.--._____
  .--.--';_'-.', ";_      _.,-'
@@ -454,7 +506,7 @@ print('''             _._                                        _._
        '----|_ _|--------------------------------------|_ _|----''')
 print()
 print()
-input ("Druk op enter om te beginnen...")
+input (txt("Druk op enter om te beginnen..."))
 
 battle_count = 0
 while player.hp>0:
