@@ -264,7 +264,7 @@ class Katholieke(Monster):
 		self.xp_value = 100 + self.level * 20
 
 
-# Class voor zwervers
+# Class voor Zwerver
 class Zwerver(Monster):
 	
 	def __init__(self, level):
@@ -286,6 +286,27 @@ class Zwerver(Monster):
 			damage *= 2
 			return damage
 
+# Class voor Ijsbeer
+class Ijsbeer(Monster):
+
+	def __init__(self, level):
+		Monster.__init__(self,level)
+
+		self.monster_type = "Ijsbeer"
+		self.level = level
+		self.hp = self.max_hp = self.level * 20
+		self.min_damage = 1
+		self.max_damage = self.level * 4
+		self.xp_value = 100 + self.level * 20
+		self.crit_chance = max(30,level * 10)
+
+	def attack(self):
+		damage = random.randint(self.min_damage, self.max_damage)
+		return damage
+		if random.randint(1,100) <= self.crit_chance:
+			print(self.monster_type, "makes a critical hit!")
+			damage *= 2
+			return damage
 
 # Class voor battles
 class Battle:
@@ -295,7 +316,7 @@ class Battle:
 		self.difficulty = random.randint(1,4)
 		self.monster_list = []
 		self.xp_value = 0
-		monster_types = ["Wolf", "Zwerver","Katholieke"]
+		monster_types = ["Wolf", "Zwerver","Katholieke","Ijsbeer"]
 	
 		for i in range(self.difficulty):
 			monster_choice = random.choice(monster_types)
@@ -305,6 +326,8 @@ class Battle:
 				self.monster_list.append(Zwerver(self.player.level))
 			elif monster_choice == "Katholieke":
 				self.monster_list.append(Katholieke(self.player.level))
+			elif monster_choice == "Ijsbeer":
+				self.monster_list.append(Ijsbeer(self.player.level))
 			
 			self.xp_value += self.monster_list[i].xp_value
 				
