@@ -61,6 +61,9 @@ europa = {
 
 }
 
+
+inventory = []
+
 ### Standaard Defs
 
 
@@ -175,6 +178,7 @@ class Item:
 		self.item_level = item_level
 	def print_stats(self):
 		print(self.item_type, "level:",self.item_level)
+		
 	def addtoinventory(item):
 		global inventory
 		# pick up item  
@@ -353,7 +357,33 @@ class Battle:
 				self.monster_list.append(Ijsbeer(self.player.level))
 			
 			self.xp_value += self.monster_list[i].xp_value
-				
+	def showStatus(): 
+		print()
+		print("###############################")
+		print()
+		#
+		print("You are in the "+ here+ ".")
+		#enemies
+		if "monster" in europa[here]:
+			print ("You see these enemies:")
+			for monster in europa[here]["monster"]:
+				print("  "+ monster+ " : ", end="")
+				talk(monster,"on encounter")
+		#transitions
+		print("You see these doors:")
+		for door in europa[here]["transitions"]:
+		 print("  "+ door)
+			#item
+		if "items" in europa[here]:
+			print ("You see these items:")
+			for item in europa[here]["items"]:
+				print("  "+ item)
+
+
+
+		 #
+		print()
+
 	def battle_stats(self):
 		print("You are fighting:")
 
@@ -465,10 +495,12 @@ class Battle:
 		print()
 		print("You are under attack")
 
+	
 		while True:
 			print()
 			print("######### BATTLE ROUND ##########")
 			self.battle_stats()
+			
 
 			player_action = ""
 			while player_action not in ["S","F", "H","R","Q"]:
@@ -616,6 +648,7 @@ while player.hp>0:
 	txt("battle " + str(battle_count))
 
 	battle = Battle(player)
+	
 
 	battle.fight_battle()
 
