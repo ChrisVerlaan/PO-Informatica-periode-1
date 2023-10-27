@@ -91,7 +91,7 @@ class Player:
 		
 	def attack(self):
 		damage = self.level + random.randint(self.weapon.min_damage,self.weapon.max_damage)
-		print(self.name,"attacks hits",self.weapon.weapon_type,"for",damage,"damage")
+		txt(self.name + " attacks hits " + self.weapon.weapon_type + " for " + str(damage) + " damage.")
 		return damage
 		
 	def take_hit(self, damage):
@@ -312,8 +312,8 @@ class Battle:
 		print("You are fighting:")
 
 		for i in range(self.difficulty):
-			i -= 1
-			print("Enemy" + str(i))
+			MonsterNummer = i + 1
+			print("Enemy " + str(MonsterNummer))
 			self.monster_list[i].print_stats()
 			print()
 
@@ -370,6 +370,8 @@ class Battle:
 				print("You equip the new item monsters beware!")
 		else:
 			print("You look real hard, but the monsters drop nothing...")
+	
+	
 	def monster_attack(self):
 		for monster in self.monster_list:
 			if monster.hp >0:
@@ -384,9 +386,6 @@ class Battle:
 			while target < 0 or target > max_target:
 				target = int(input("Which monster would you like to attack? (1 - " + str(max_target) +")",))
 				target -= 1 
-		else:
-			target = 0
-
 			
 		player_damage = self.player.attack()
 
