@@ -56,6 +56,7 @@ europa = {
 		"transitions": {
 			"zuiden" : "Duitsland"
 		},
+		 "item": ["Key"]
 	},
 
 }
@@ -154,6 +155,16 @@ class Player:
 		self.armor.print_stats()
 		print("#########################")
 
+	def showinventory():
+		if len(inventory) > 0:
+			print("<--- inventory --->" )
+			for item in inventory:
+				print("  " + item)
+		else: 
+			print("Your inventory is empty.")
+
+	
+
 
 
 # Class voor items
@@ -164,7 +175,19 @@ class Item:
 		self.item_level = item_level
 	def print_stats(self):
 		print(self.item_type, "level:",self.item_level)
+	def addtoinventory(item):
+		global inventory
+		# pick up item  
+		if type(item) == list: # mutltiple items
+			inventory += item
+		else: # one item
+			inventory.append(item) 
+		# clean up inventory
 
+
+		inventory.sort()#alphabetical order
+		print()
+		showinventory()
 
 # Class voor weapons
 class Weapon(Item):
@@ -453,6 +476,7 @@ class Battle:
 
 			if player_action == "S":
 				self.player.print_stats()
+				
 				print()
 				
 			elif player_action == "F":
@@ -553,6 +577,7 @@ ____________________________________|  """|"____________________________________
 
 player = Player(player_name)
 print()
+txt("Doel = verover de hele wereld")
 txt("Veel succes, " + player_name + ", heel Nederland rekent op je !!!!!")
 print()
 print('''       _,--',   _._.--._____
@@ -572,6 +597,12 @@ print('''             _._                                        _._
  '.          | |    __||\|-| | |_ |_||_||-||\_|_/__|    | |          .'
 	 '-._     |'-'|                                      |'-'|     _.-'
 			 '----|_ _|--------------------------------------|_ _|----''')
+print()
+print()
+txt('''Commands --> 
+   go [directions]
+	 get [item]
+	 use [item] ''')
 print()
 print()
 input (txt("Druk op enter om te beginnen..."))
