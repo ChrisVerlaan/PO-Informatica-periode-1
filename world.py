@@ -12,9 +12,56 @@ import os
 
 
 class World():
- 
-	current_world = europa
+	here = 0
+	
+	current_world = 
 
+class Europa(World):
+	
+	def __init__(self):
+		self.here = "Nederland"
+		self.map_name = europa
+		self.map = {
+			"Nederland": {
+				"transitions": {
+					"oosten" : "Duitsland",
+					"zuiden" : "Frankrijk"
+				},
+			},
+			"Duitsland" : {
+				"transitions": {
+					"westen": "Nederland",
+					"noorden": "Scandinavie"
 
-	location = current_world
-	world = location
+				},
+			},
+			"Frankrijk" : {
+				"transitions": {
+					"noorden": "Nederland",
+					"westen" : "Engeland",
+					"zuiden" : "Spanje"
+				},
+			},
+			"Spanje" : {
+				"transitions": {
+					"noorden": "Frankrijk"
+
+				},
+
+			},
+
+			"Engeland": {
+				"transitions": {
+					"oosten": "Frankrijk"
+
+				},
+			},
+			"Scandinavie": {
+				"transitions": {
+					"zuiden" : "Duitsland"
+				},
+				 "item": ["Key"]
+			},
+
+		}
+		
