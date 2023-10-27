@@ -10,6 +10,7 @@ import sys
 
 import os
 
+from battle import Battle
 
 
 
@@ -345,7 +346,7 @@ class Battle:
 		self.monster_list = []
 		self.xp_value = 0
 		monster_types = ["Wolf", "Zwerver","Katholieke","Ijsbeer"]
-	
+
 		for i in range(self.difficulty):
 			monster_choice = random.choice(monster_types)
 			if monster_choice == "Wolf":
@@ -356,7 +357,7 @@ class Battle:
 				self.monster_list.append(Katholieke(self.player.level))
 			elif monster_choice == "Ijsbeer":
 				self.monster_list.append(Ijsbeer(self.player.level))
-			
+
 			self.xp_value += self.monster_list[i].xp_value
 	def showStatus(): 
 		print()
@@ -397,7 +398,7 @@ class Battle:
 		print("########################")
 		print()
 
-		
+
 	def generate_loot(self):
 		loot = False
 		if self.difficulty == 1:
@@ -447,15 +448,15 @@ class Battle:
 				print("You equip the new item monsters beware!")
 		else:
 			print("You look real hard, but the monsters drop nothing...")
-	
-	
+
+
 	def monster_attack(self):
 		for monster in self.monster_list:
 			if monster.hp >0:
 				monster_damage = monster.attack()
 				self.player.take_hit(monster_damage)
-				
-		
+
+
 	def player_attack(self):
 		target = -1
 		if len(self.monster_list) >1:
@@ -463,7 +464,7 @@ class Battle:
 			while target < 0 or target > max_target:
 				target = int(input("Which monster would you like to attack? (1 - " + str(max_target) +")",))
 				target -= 1 
-			
+
 		player_damage = self.player.attack()
 
 		if self.monster_list[target].hp >0:
@@ -476,8 +477,8 @@ class Battle:
 			self.player.heal(heal_amount)
 		else:
 			print("You tried to heal yourself, but the spell failed..")
-		
-		
+
+
 	def player_run(self):
 		if random.randint(1,100) <= 25:
 			print("You ran away as fast as you could and you've lost the monster")
@@ -485,23 +486,23 @@ class Battle:
 		else:
 			print("You tried to run away, but the monster will not let you")
 			return False
-			
-		
+
+
 	def player_quit(self):
 		print("You give up....")
 		self.player.hp = 0
-	
-		
+
+
 	def fight_battle(self):
 		print()
 		print("You are under attack")
 
-	
+
 		while True:
 			print()
 			print("######### BATTLE ROUND ##########")
 			self.battle_stats()
-			
+
 
 			player_action = ""
 			while player_action not in ["S","F", "H","R","Q"]:
@@ -509,12 +510,12 @@ class Battle:
 
 			if player_action == "S":
 				self.player.print_stats()
-				
+
 				print()
-				
+
 			elif player_action == "F":
 				self.player_attack()
-				
+
 
 
 				monster_alive = 0
@@ -530,27 +531,27 @@ class Battle:
 						print("####### YOU WON ########")
 						print("########################")
 						print('''                             .---'::'        `---.
-                            (::::::'              )
-                            |`-----._______.-----'|
-                            |              :::::::|
-                           .|               ::::::!-.
-                           \|               :::::/|/
-                            |               ::::::|
-                            |                    :|
-                            |                 ::::|
-                            |               ::::::|
-                            |              .::::::|
-                            J              :::::::F
-                             \            :::::::/
-                              `.        .:::::::'
-                                `-._  .::::::-'
+														(::::::'              )
+														|`-----._______.-----'|
+														|              :::::::|
+													 .|               ::::::!-.
+													 \|               :::::/|/
+														|               ::::::|
+														|                    :|
+														|                 ::::|
+														|               ::::::|
+														|              .::::::|
+														J              :::::::F
+														 \            :::::::/
+															`.        .:::::::'
+																`-._  .::::::-'
 ____________________________________|  """|"_________________________________________
-                                    |  :::|
-                                    F   ::J
-                                   /     ::\                                        
-                              __.-'      :::`-.__
-                             (_           ::::::_)
-                               `"""---------"""'
+																		|  :::|
+																		F   ::J
+																	 /     ::\                                        
+															__.-'      :::`-.__
+														 (_           ::::::_)
+															 `"""---------"""'
 ''')
 
 						self.player.xp_gain(self.xp_value)
@@ -639,7 +640,7 @@ txt('''Commands -->
 print()
 print()
 input (txt("Druk op enter om te beginnen..."))
-
+## 
 battle_count = 0
 while player.hp>0:
 	print()
