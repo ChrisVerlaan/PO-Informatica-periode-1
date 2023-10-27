@@ -559,7 +559,7 @@ while player.hp>0:
 	print("______")
 	print()
 	battle_count +=1
-	print("battle",battle_count)
+	txt("battle " + str(battle_count))
 
 	battle = Battle(player)
 
