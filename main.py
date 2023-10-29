@@ -10,7 +10,7 @@ import sys
 
 import os
 
-from battle import Battle
+
 
 
 
@@ -359,27 +359,27 @@ class Battle:
 				self.monster_list.append(Ijsbeer(self.player.level))
 
 			self.xp_value += self.monster_list[i].xp_value
-	def showStatus(): 
+	def showStatus(player): 
 		print()
 		print("###############################")
 		print()
 		#
-		print("You are in the "+ here+ ".")
+		txt("You are in the "+ str(here) + ".")
 		#enemies
 		if "monster" in europa[here]:
-			print ("You see these enemies:")
+			txt("You see these enemies:")
 			for monster in europa[here]["monster"]:
-				print("  "+ monster+ " : ", end="")
-				talk(monster,"on encounter")
+				txt("  "+ str(monster)+ " : ", end="")
+				txt(str(monster),"on encounter")
 		#transitions
-		print("You see these doors:")
+		txt("You see these doors:")
 		for door in europa[here]["transitions"]:
-		 print("  "+ door)
+		 txt("  "+ str(door))
 			#item
 		if "items" in europa[here]:
-			print ("You see these items:")
+			txt("You see these items:")
 			for item in europa[here]["items"]:
-				print("  "+ item)
+				txt("  "+ str(item))
 
 
 
@@ -641,6 +641,9 @@ print()
 print()
 input (txt("Druk op enter om te beginnen..."))
 ## 
+#showStatus = Battle(self)
+battle = showStatus(player)
+battle.showStatus()
 battle_count = 0
 while player.hp>0:
 	print()

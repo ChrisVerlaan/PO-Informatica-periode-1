@@ -15,7 +15,15 @@ class World():
 	here = 0
 	
 	current_world = 
-
+	
+def goto(direction): 
+	global here
+	if direction in world[here]["transitions"]:
+	 print("you walk " + direction + "." )
+	 here = world[here]["transitions"] [direction]
+	else:
+		print("you can't go that way!")
+		
 class Europa(World):
 	
 	def __init__(self):
