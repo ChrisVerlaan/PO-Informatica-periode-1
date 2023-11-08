@@ -10,6 +10,10 @@ import sys
 
 import os
 
+from world import World
+
+from Functies import txt
+
 
 
 
@@ -64,18 +68,10 @@ europa = {
 }
 
 
-inventory = []
+
 
 ### Standaard Defs
 
-
-def txt(text):
-	for x in colored(text, "white"): # Prints the text in wit
-		sys.stdout.write(x) 
-		sys.stdout.flush()
-		time.sleep(0.03) # Zit een tijd tussen van 0.03 voor elke letter
-	print()
-	return ""
 
 
 ### Classes
@@ -88,6 +84,7 @@ class Player:
 	hp = 50
 	max_hp = 50
 	name =""
+	inventory = []
 	
 	def __init__ (self,name):
 		self.name = name
@@ -160,8 +157,8 @@ class Player:
 		self.armor.print_stats()
 		print("#########################")
 
-	def showinventory():
-		if len(inventory) > 0:
+	def showinventory(self):
+		if len(self.inventory) > 0:
 			print("<--- inventory --->" )
 			for item in inventory:
 				print("  " + item)
@@ -170,18 +167,7 @@ class Player:
 
 	
 
-
-
-# Class voor items
-class Item:
-	item_type = None
-
-	def __init__( self,item_level):
-		self.item_level = item_level
-	def print_stats(self):
-		print(self.item_type, "level:",self.item_level)
-		
-	def addtoinventory(item):
+	def addtoinventory(self):
 		global inventory
 		# pick up item  
 		if type(item) == list: # mutltiple items
@@ -193,7 +179,19 @@ class Item:
 
 		inventory.sort()#alphabetical order
 		print()
-		showinventory()
+		showinventory() 
+
+
+# Class voor items
+class Item:
+	item_type = None
+
+	def __init__( self,item_level):
+		self.item_level = item_level
+	def print_stats(self):
+		print(self.item_type, "level:",self.item_level)
+		
+
 
 # Class voor weapons
 class Weapon(Item):
@@ -331,12 +329,12 @@ class Ijsbeer(Monster):
 
 	def attack(self):
 		damage = random.randint(self.min_damage, self.max_damage)
-		return damage
+		
 		if random.randint(1,100) <= self.crit_chance:
 			print(self.monster_type, "makes a critical hit!")
 			damage *= 2
-			return damage
-
+			
+		return damage
 # Class voor battles
 class Battle:
 
@@ -359,32 +357,7 @@ class Battle:
 				self.monster_list.append(Ijsbeer(self.player.level))
 
 			self.xp_value += self.monster_list[i].xp_value
-	def showStatus(player): 
-		print()
-		print("###############################")
-		print()
-		#
-		txt("You are in the "+ str(here) + ".")
-		#enemies
-		if "monster" in europa[here]:
-			txt("You see these enemies:")
-			for monster in europa[here]["monster"]:
-				txt("  "+ str(monster)+ " : ", end="")
-				txt(str(monster),"on encounter")
-		#transitions
-		txt("You see these doors:")
-		for door in europa[here]["transitions"]:
-		 txt("  "+ str(door))
-			#item
-		if "items" in europa[here]:
-			txt("You see these items:")
-			for item in europa[here]["items"]:
-				txt("  "+ str(item))
-
-
-
-		 #
-		print()
+	
 
 	def battle_stats(self):
 		print("You are fighting:")
@@ -642,9 +615,12 @@ print()
 input (txt("Druk op enter om te beginnen..."))
 ## 
 #showStatus = Battle(self)
-battle = showStatus(player)
-battle.showStatus()
-battle_count = 0
+
+battle_count = 0 
+
+player.showinventory()
+# world=World(10)
+# world.showStatus(player,here)
 while player.hp>0:
 	print()
 	print("______")
