@@ -12,6 +12,8 @@ import os
 
 from Functies import txt
 
+from Player import Player
+
 class World():
 	here = 0
 	
@@ -21,7 +23,7 @@ class World():
 	
 	def showStatus(self,player,here): 
 		print()
-		print("###############################")
+		txt("###############################")
 		print()
 		#
 		txt("You are in the "+ str(here) + ".")
@@ -48,10 +50,10 @@ class World():
 	def goto(direction): 
 		global here
 		if direction in world[here]["transitions"]:
-		 print("you walk " + direction + "." )
+		 txt("you walk " + str(direction) + "." )
 		 here = world[here]["transitions"] [direction]
 		else:
-			print("you can't go that way!")
+			txt("you can't go that way!")
 		
 class Europa(World):
 	
