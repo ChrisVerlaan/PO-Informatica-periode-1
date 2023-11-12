@@ -113,5 +113,4 @@ class Player:
 
 		self.inventory.sort()#alphabetical order
 		print()
-		self.showinventory() 
 

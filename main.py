@@ -16,8 +16,6 @@ from Battle import Battle
 
 from world import World
 
-from world import Europa
-
 from monster import Monster
 
 from monster import Ijsbeer
@@ -39,7 +37,6 @@ from Player import Player
 
 
 player_name = "J.P. Balkenende"
-here = "Nederland"
 
 
 
@@ -85,19 +82,18 @@ input (txt("Druk op enter om te beginnen..."))
 battle_count = 0 
 
 
-# world=World(10)
+world = World(10)
 # world.showStatus(player,here)
 
 
 
 
 while player.hp>0:
-	World.showStatus(here,here)
+	world.showStatus(world.here)
 	action = input('>')
 	action = action.lower().split(" ",1)
-	World.goto(player,action[0],action[1])
 	if action[0] == "go":
-		goto(action[1]) 
+		world.goto(action[1]) 
 		player.showinventory()
 	elif action[0] == "get":
 		getitem(action[1])
@@ -110,7 +106,7 @@ while player.hp>0:
 	else:
 		txt("invalid action.")
 		
-	if "monster" in self.map[here]:
+	if "enemies" in world.map[world.here]:
 		print()
 		print("______")
 		print()
