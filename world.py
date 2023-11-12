@@ -21,7 +21,7 @@ class World():
 		self.size = size
 		self.map = {}
 	
-	def showStatus(self,player,here): 
+	def showStatus(self,here): 
 		print()
 		txt("###############################")
 		print()
@@ -47,8 +47,8 @@ class World():
 	
 		 #
 		print()
-	def goto(direction): 
-		global here
+	def goto(self,direction,here): 
+		#global here
 		if direction in world[here]["transitions"]:
 		 txt("you walk " + str(direction) + "." )
 		 here = world[here]["transitions"] [direction]
@@ -63,43 +63,47 @@ class Europa(World):
 		self.map = {
 			"Nederland": {
 				"transitions": {
-					"oosten" : "Duitsland",
-					"zuiden" : "Frankrijk"
+					"oost" : "Duitsland",
+					"zuid" : "Frankrijk"
 				},
 			},
 			"Duitsland" : {
 				"transitions": {
-					"westen": "Nederland",
-					"noorden": "Scandinavie"
+					"west": "Nederland",
+					"noord": "Scandinavie"
 
 				},
 			},
 			"Frankrijk" : {
 				"transitions": {
-					"noorden": "Nederland",
-					"westen" : "Engeland",
-					"zuiden" : "Spanje"
+					"noord": "Nederland",
+					"west" : "Engeland",
+					"zuid" : "Spanje"
 				},
+				"enemies":["Zwerver"]
 			},
 			"Spanje" : {
 				"transitions": {
-					"noorden": "Frankrijk"
+					"noord": "Frankrijk"
 
 				},
+				"enemies":["Katholieke"]
 
 			},
 
 			"Engeland": {
 				"transitions": {
-					"oosten": "Frankrijk"
+					"oost": "Frankrijk"
 
 				},
+				"enemies":["Wolf"] 
 			},
 			"Scandinavie": {
 				"transitions": {
-					"zuiden" : "Duitsland"
+					"zuid" : "Duitsland"
 				},
-				 "item": ["Key"]
+				"enemies":["Ijsbeer"],
+				"item": ["Key"]
 			},
 
 		}

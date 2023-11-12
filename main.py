@@ -16,6 +16,8 @@ from Battle import Battle
 
 from world import World
 
+from world import Europa
+
 from monster import Monster
 
 from monster import Ijsbeer
@@ -38,49 +40,6 @@ from Player import Player
 
 player_name = "J.P. Balkenende"
 here = "Nederland"
-europa = {
-	"Nederland": {
-		"transitions": {
-			"oosten" : "Duitsland",
-			"zuiden" : "Frankrijk"
-		},
-	},
-	"Duitsland" : {
-		"transitions": {
-			"westen": "Nederland",
-			"noorden": "Scandinavie"
-			
-		},
-	},
-	"Frankrijk" : {
-		"transitions": {
-			"noorden": "Nederland",
-			"westen" : "Engeland",
-			"zuiden" : "Spanje"
-		},
-	},
-	"Spanje" : {
-		"transitions": {
-			"noorden": "Frankrijk"
-			
-		},
-
-	},
-	
-	"Engeland": {
-		"transitions": {
-			"oosten": "Frankrijk"
-			
-		},
-	},
-	"Scandinavie": {
-		"transitions": {
-			"zuiden" : "Duitsland"
-		},
-		 "item": ["Key"]
-	},
-
-}
 
 
 
@@ -125,34 +84,45 @@ input (txt("Druk op enter om te beginnen..."))
 
 battle_count = 0 
 
-player.showinventory()
+
 # world=World(10)
 # world.showStatus(player,here)
 
-if action[0] == "go":
-	goto(action[1]) 
-elif action[0] == "get":
-	getitem(action[1])
-elif action[0] == "use":
-	useitem(action[1])
-elif action[0] == "stats":
-	showinventory()
 
-else:
-	txt("invalid acrtion.")
-	
+
+
 while player.hp>0:
-	print()
-	print("______")
-	print()
-	battle_count +=1
-	txt("battle " + str(battle_count))
-
-	battle = Battle(player)
+	World.showStatus(here,here)
+	action = input('>')
+	action = action.lower().split(" ",1)
+	World.goto(player,action[0],action[1])
+	if action[0] == "go":
+		goto(action[1]) 
+		player.showinventory()
+	elif action[0] == "get":
+		getitem(action[1])
+	elif action[0] == "use":
+		useitem(action[1])
+		
+	elif action[0] == "stats":
+		showinventory()
 	
-
-	battle.fight_battle()
-
+	else:
+		txt("invalid action.")
+		
+	if "monster" in self.map[here]:
+		print()
+		print("______")
+		print()
+		battle_count +=1
+		txt("battle " + str(battle_count))
+	
+		battle = Battle(player)
+		
+	
+		battle.fight_battle()
+	
+		
 print()
 print("You have fought",battle_count, "battles")
 player.print_stats()

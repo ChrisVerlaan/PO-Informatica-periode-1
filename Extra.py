@@ -92,7 +92,7 @@ class Weapon(Item):
 		#use on yourself
 		if target in ["self","myself","me", "my","i"]:
 		
-			#########################3################useitemonself(item)
+			useitemonself(item)
 
 
 

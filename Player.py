@@ -18,6 +18,7 @@ from Extra import Armor
 
 from Functies import txt
 
+
 class Player:
 	level = 1
 	xp = 0
@@ -110,7 +111,7 @@ class Player:
 
 
 
-		inventory.sort()#alphabetical order
+		self.inventory.sort()#alphabetical order
 		print()
-		showinventory() 
+		self.showinventory() 
 
