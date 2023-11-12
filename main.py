@@ -108,6 +108,8 @@ while player.hp>0:
 		
 	if "enemies" in world.map[world.here]:
 		print()
+		txt("There is a bad thing in this room.")
+		txt("He is attacking you")
 		print("______")
 		print()
 		battle_count +=1

@@ -93,7 +93,7 @@ class Battle:
 			self.player.print_stats()
 			print()
 
-			choice = xtx (imput("Do you want to equiq the new item? (Y/N)"))
+			choice = txt(imput("Do you want to equiq the new item? (Y/N)"))
 			choice = choice.lower()
 
 
@@ -197,7 +197,7 @@ class Battle:
 						txt("#############################")
 						txt("####### YOU killd it ########")
 						txt("#############################")
-						txt('''                             .---'::'        `---.
+						print('''                             .---'::'        `---.
 														(::::::'              )
 														|`-----._______.-----'|
 														|              :::::::|

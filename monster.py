@@ -42,7 +42,7 @@ class Monster():
 	
 	
 		if self.hp > 0:
-			txt(str(self.monster_type) +  " has "+  str(self.hp) + "hitpoints left.")
+			txt(str(self.monster_type) +  " has "+  str(self.hp) + " hitpoints left.")
 		else:
 			txt(str(self.monster_type) + " was slain ")
 	
@@ -82,7 +82,7 @@ class Zwerver(Monster):
 	def attack(self):
 		damage = random.randint(self.min_damage, self.max_damage)
 		return damage
-		if random.randint(1,100) <= self.crit_chance:
+		if random.randint(1,70) <= self.crit_chance:
 			txt(str(self.monster_type) + " makes a critical hit! ")
 			damage *= 2
 			return damage
@@ -96,6 +96,15 @@ class Katholieke(Monster):
 		self.min_damage = self.level + 1
 		self.max_damage = self.level * 2
 		self.xp_value = 100 + self.level * 20
+
+	def attack(self):
+		damage = random.randint(self.min_damage, self.max_damage)
+	
+		if random.randint(1,30) <= self.crit_chance:
+			txt(str(self.monster_type)+ " makes a critical hit! ")
+			damage *= 4
+	
+		return damage
 	
 class Ijsbeer(Monster):
 

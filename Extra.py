@@ -65,13 +65,13 @@ class Weapon(Item):
 
 		self.item_type = "weapon"
 
-		weapon_list = ["sword","axe"]
+		weapon_list = ["sword","skateboard"]
 		self.weapon_type = random.choice(weapon_list)
 
 		if self.weapon_type == "sword":
 			self.min_damage = self.item_level * 2
 			self.max_damage = self.item_level * 3
-		elif self.weapon_type == "axe":
+		elif self.weapon_type == "skateboard":
 			self.min_damage = 1
 			self.max_damage = self.item_level * 4
 	def print_stats(self):
@@ -89,13 +89,7 @@ class Weapon(Item):
 		print()
 
 		#chek whether the target is in the room
-		#use on yourself
-		if target in ["self","myself","me", "my","i"]:
 		
-			useitemonself(item)
-
-
-
 # Class voor armor
 class Armor(Item):
 	def __init__(self,item_level):
