@@ -47,7 +47,7 @@ class Item():
 		def getitem(self,item):
 			#check wheter the item is actually here
 			if "items" in world[here] and item in world[here]["items"]:
-				print("you found a "+ item + ".")
+				print("Je vond "+ item + ".")
 				addtoinventory(item)
 				# and remove it from the room: 
 				removethingfromroom("items",item)
@@ -55,9 +55,9 @@ class Item():
 			else:
 				# the item isn't there
 				if "objects" in world[here] and item in world[here]["objects"]:
-					print("The "+ item + " is too heavy to be lifted.") 
+					print("Je kan "+ item + " helaas niet oppakken.") 
 				else: 
-					print("you cant pick up what isn't there...")
+					print("Je kan niet iets pakken wat er niet is.")
 # Class voor weapons
 class Weapon(Item):
 	def __init__ (self,item_level):
@@ -80,7 +80,7 @@ class Weapon(Item):
 		
 	def useitem(item):
 		if not item in inventory:
-			print("you can't use what you don't have...")
+			print("Dit heb je niet.")
 			return
 
 		# what to use the item on
