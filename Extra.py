@@ -10,54 +10,62 @@ import os
 
 from Functies import txt
 
+from world import World
 
 
 class Item():
 	item_type = None
+	invitem = " "
 
 	def __init__( self,item_level):
 		self.item_level = item_level
 	def print_stats(self):
 		txt(str(self.item_type) + "level: "+ str(self.item_level))
 
-
-	def removethingfromroom(item,typeofthing, thing, room=None):
-		if room == None: room = here
-			#check if anything is here
-		if typeofthing in world[room]:
-			# chekck if the thing is here
-			if thing in world[room][typeofthing]:
-				world[room][typeofthing].remove(thing)
-			if len(world[room][typeofthing]) == 0:
-				del world[room][typeofthing]
-				return True
-			else:
-				return False
-		else:# cant remove what is not teher
-			return True
-			
-	def addtoinventory(item):
-		global inventory
-		# pick up item  
-		if type(item) == list: # mutltiple items
-			inventory += item
-		else: # one item
-			inventory.append(item) 
-		# clean up inventory
-		def getitem(self,item):
-			#check wheter the item is actually here
-			if "items" in world[here] and item in world[here]["items"]:
-				print("you found a "+ item + ".")
-				addtoinventory(item)
+	
+		
+	def getitem(l, pitem, world, item):
+		global invitem #groetjes gio
+		
+		#check wheter the item is actually here
+		if "item" in world.map[world.here] and pitem in world.map[world.here]["item"]:
+			print("you found a "+ pitem + ".")
 				# and remove it from the room: 
-				removethingfromroom("items",item)
+			world.removethingfromroom(world, "item",pitem)
+			item.invitem = pitem
 
+		else:
+			# the item isn't there
+			if "objects" in world.map[world.here] and item in world.map[world.here]["objects"]:
+				print("The "+ item + " is too heavy to be lifted.") 
+			else: 
+				print("you cant pick up what isn't there...")
+
+	def useitem(l, player, item, world):
+		if not item in player.inventory:
+			print("you can't use what you don't have...")
+			return
+	
+		# what to use the item on
+		print("on what or whom?")
+		target = input("> ").lower()
+		print()
+	
+		#chek whether the target is in the room
+		#use on yourself
+		if target in ["self","myself","me", "my","i"]:
+	
+			useitemonself(item)
+	
+		if "objects" in world.map[world.here]:
+			if target in world.map[world.here]["objects"]:
+				if target == "deur":
+					world.map[world.here]["transitions"]["zuid"] = "Spanje"
+				else:
+					txt("that is not a legal target.")
 			else:
-				# the item isn't there
-				if "objects" in world[here] and item in world[here]["objects"]:
-					print("The "+ item + " is too heavy to be lifted.") 
-				else: 
-					print("you cant pick up what isn't there...")
+				txt("thats not here...")
+	
 # Class voor weapons
 class Weapon(Item):
 	def __init__ (self,item_level):
@@ -77,24 +85,6 @@ class Weapon(Item):
 	def print_stats(self):
 		Item.print_stats(self)
 		txt(str(self.weapon_type) + "damage: "+ str(self.min_damage) + "-" + str(self.max_damage))
-		
-	def useitem(item):
-		if not item in inventory:
-			print("you can't use what you don't have...")
-			return
-
-		# what to use the item on
-		print("on what or whom?")
-		target = input("> ").lower()
-		print()
-
-		#chek whether the target is in the room
-		#use on yourself
-		if target in ["self","myself","me", "my","i"]:
-		
-			useitemonself(item)
-
-
 
 # Class voor armor
 class Armor(Item):

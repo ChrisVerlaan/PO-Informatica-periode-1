@@ -28,6 +28,8 @@ from monster import Zwerver
 
 from Player import Player
 
+from Extra import Item
+
 
 
 
@@ -83,6 +85,7 @@ battle_count = 0
 
 
 world = World(10)
+item = Item(0)
 # world.showStatus(player,here)
 
 
@@ -96,9 +99,11 @@ while player.hp>0:
 		world.goto(action[1]) 
 		player.showinventory()
 	elif action[0] == "get":
-		getitem(action[1])
+		item.getitem(action[1], world, item)
+		print(str(item.invitem))
+		player.addtoinventory(player, str(item.invitem))
 	elif action[0] == "use":
-		useitem(action[1])
+		item.useitem(player, action[1], world)
 		
 	elif action[0] == "stats":
 		showinventory()

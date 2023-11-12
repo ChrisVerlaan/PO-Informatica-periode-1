@@ -8,8 +8,6 @@ import sys
 
 import os
 
-from Functies import txt
-
 from Extra import Item
 
 from Extra import Weapon
@@ -102,7 +100,7 @@ class Player:
 	def showinventory(self):
 		if len(self.inventory) > 0:
 			txt("<--- inventory --->" )
-			for item in inventory:
+			for item in self.inventory:
 				txt("  " + str(item))
 		else: 
 			txt("Your inventory is empty.")
@@ -113,4 +111,12 @@ class Player:
 
 		self.inventory.sort()#alphabetical order
 		print()
+
+	def addtoinventory(player, l, item):
+		# pick up item  
+		if type(item) == list: # mutltiple items
+			player.inventory += item
+		else: # one item
+			player.inventory.append(item) 
+		# clean up inventory
 

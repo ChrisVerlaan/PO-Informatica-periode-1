@@ -12,8 +12,6 @@ import os
 
 from Functies import txt
 
-from Player import Player
-
 
 class World():
 	def __init__(self, size):
@@ -37,9 +35,9 @@ class World():
 				"transitions": {
 					"noord": "Nederland",
 					"west" : "Engeland",
-					"zuid" : "Spanje"
 				},
-				"enemies":["Zwerver"]
+				"enemies":["Zwerver"],
+				"objects" : ["deur"]
 			},
 			"Spanje" : {
 				"transitions": {
@@ -62,7 +60,7 @@ class World():
 					"zuid" : "Duitsland"
 				},
 				"enemies":["Ijsbeer"],
-				"item": ["Key"]
+				"item": ["key"]
 			},
 
 		}
@@ -102,4 +100,21 @@ class World():
 		 return self.here
 		else:
 			txt("you can't go that way!")
+
 	
+	def removethingfromroom(world, item,typeofthing, thing, room=None):
+		if room == None: room = world.here
+			#check if anything is here
+		if typeofthing in world.map[room]:
+			# chekck if the thing is here
+			if thing in world.map[room][typeofthing]:
+				world.map[room][typeofthing].remove(thing)
+			if len(world.map[room][typeofthing]) == 0:
+				del world.map[room][typeofthing]
+				return True
+			else:
+				return False
+		else:# cant remove what is not teher
+			return True
+
+
