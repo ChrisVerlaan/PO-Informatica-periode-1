@@ -53,19 +53,19 @@ class Player:
 					txt("ouch! you take " + str(final_damage) + " damage")
 					txt("you have "+ str(self.hp) +" hp left")
 		else:
-			txt("your armor protects you. You have no damage")
+			txt("Je harnas beschermt je. Je krijgt geen schade")
 	def heal(self,heal_amount):
 		self.hp += heal_amount
 
 		if self.hp > self.max_hp:
 			self.hp = self.max_hp
 
-			txt("You healed for"+ str(heal_amount) + "hp")
-			txt("you currently have" + str(self.hp) + "/" + str(self.max_hp) + "hp")
+			txt("Je hebt voor"+ str(heal_amount) + "hp gehealed")
+			txt("Je hebt momenteel" + str(self.hp) + "/" + str(self.max_hp) + "hp")
 
 	def xp_gain(self, xp_amount):
 		self.xp += xp_amount
-		txt("you have gained"+ str(xp_amount) + "xp")
+		txt("Je hebt"+ str(xp_amount) + "xp verdiend")
 
 		if self.xp >= self.next_level_xp:
 			self.level +=1
@@ -75,7 +75,7 @@ class Player:
 			self.max_hp = int(self.max_hp * 1.2)
 			self.hp = self.max_hp
 
-			txt ("you've reached level" + str(self.level))
+			txt ("Level behaalt:" + str(self.level))
 			self.print_stats()
 	def equip_item(self,item):
 		if item.item_type == "weapon":
@@ -87,7 +87,7 @@ class Player:
 	def print_stats(self):
 		print()
 		txt("#########################")
-		txt("##### player stats: #####")
+		txt("##speler statistieken: ##")
 		txt("#########################")
 		print()
 		txt( "name:"+ str(self.name))
@@ -105,7 +105,7 @@ class Player:
 			for item in inventory:
 				txt("  " + str(item))
 		else: 
-			txt("Your inventory is empty.")
+			txt("Je inventaris is leeg.")
 			
 
 
