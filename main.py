@@ -128,6 +128,19 @@ battle_count = 0
 player.showinventory()
 # world=World(10)
 # world.showStatus(player,here)
+
+if action[0] == "go":
+	goto(action[1]) 
+elif action[0] == "get":
+	getitem(action[1])
+elif action[0] == "use":
+	useitem(action[1])
+elif action[0] == "stats":
+	showinventory()
+
+else:
+	txt("invalid acrtion.")
+	
 while player.hp>0:
 	print()
 	print("______")

@@ -175,6 +175,7 @@ class Battle:
 
 			if player_action == "S":
 				self.player.print_stats()
+				
 
 				print()
 

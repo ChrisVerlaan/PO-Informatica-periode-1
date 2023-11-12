@@ -105,17 +105,9 @@ class Player:
 				txt("  " + str(item))
 		else: 
 			txt("Your inventory is empty.")
+			
 
 
-
-	def addtoinventory(self):
-		global inventory
-		# pick up item  
-		if type(item) == list: # mutltiple items
-			inventory += item
-		else: # one item
-			inventory.append(item) 
-		# clean up inventory
 
 
 		inventory.sort()#alphabetical order
