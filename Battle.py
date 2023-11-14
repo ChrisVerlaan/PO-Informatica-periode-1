@@ -58,7 +58,7 @@ class Battle:
 		if "monster" in self.map[world.here]:
 			for monster in self.map[world.here]["monster"]:
 				txt("  "+ str(monster)+ " : ", end="")
-				txt(str(monster),"on encounter")
+				txt("je komt een " + str(monster) + " tegen")
 				self.monster_list[i].print_stats()
 				print()
 		# for i in range(self.difficulty):

@@ -29,7 +29,7 @@ class Item():
 
 		#check wheter the item is actually here
 		if "item" in world.map[world.here] and pitem in world.map[world.here]["item"]:
-			print("you found a "+ pitem + ".")
+			print("Je vind een "+ pitem + ".")
 				# and remove it from the room: 
 			world.removethingfromroom(world, "item",pitem)
 			item.invitem = pitem
@@ -37,17 +37,17 @@ class Item():
 		else:
 			# the item isn't there
 			if "objects" in world.map[world.here] and item in world.map[world.here]["objects"]:
-				print("The "+ item + " is too heavy to be lifted.") 
+				print("Het "+ item + " is te zwaar om opgetild te worden") 
 			else: 
-				print("you cant pick up what isn't there...")
+				print("Je kan niet optillen wat er niet is")
 
 	def useitem(l, player, item, world):
 		if not item in player.inventory:
-			print("you can't use what you don't have...")
+			print("Je kan niet gebruiken wat je niet hebt")
 			return
 
 		# what to use the item on
-		print("on what or whom?")
+		print("op wie of wat?")
 		target = input("> ").lower()
 		print()
 
@@ -62,9 +62,9 @@ class Item():
 				if target == "deur":
 					world.map[world.here]["transitions"]["zuid"] = "Spanje"
 				else:
-					txt("that is not a legal target.")
+					txt("Dat is geen legaal doelwit.")
 			else:
-				txt("thats not here...")
+				txt("Dat is hier niet.....")
 
 # Class voor weapons
 class Weapon(Item):

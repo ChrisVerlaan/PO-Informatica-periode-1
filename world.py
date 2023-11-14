@@ -73,17 +73,17 @@ class World():
 		txt("je bent in  "+ str(here) + ".")
 		#enemies
 		if "monster" in self.map[here]:
-			txt("You see these enemies:")
+			txt("Je ziet deze mosters:")
 			for monster in self.map[here]["monster"]:
 				txt("  "+ str(monster)+ " : ", end="")
-				txt(str(monster),"on encounter")
+				txt("je komt een"+str(monster)+" tegen")
 		#transitions
-		txt("You see these doors:")
+		txt("je ziet deze deuren:")
 		for door in self.map[here]["transitions"]:
 		 txt("  "+ str(door))
 			#item
 		if "items" in self.map[here]:
-			txt("You see these items:")
+			txt("Je ziet dit item:")
 			for item in self.map[here]["items"]:
 				txt("  "+ str(item))
 
@@ -95,11 +95,11 @@ class World():
 
 	def goto(self, direction): 
 		if direction in self.map[self.here]["transitions"]:
-		 txt("you walk " + str(direction) + "." )
+		 txt("Je loopt " + str(direction) + "." )
 		 self.here = self.map[self.here]["transitions"][direction]
 		 return self.here
 		else:
-			txt("you can't go that way!")
+			txt("Je kan deze kant niet op")
 
 
 	def removethingfromroom(world, item,typeofthing, thing, room=None):
