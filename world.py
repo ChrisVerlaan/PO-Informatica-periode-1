@@ -70,7 +70,7 @@ class World():
 		txt("###############################")
 		print()
 		#
-		txt("You are in the "+ str(here) + ".")
+		txt("je bent in  "+ str(here) + ".")
 		#enemies
 		if "monster" in self.map[here]:
 			txt("You see these enemies:")
