@@ -28,6 +28,8 @@ from Extra import Weapon
 
 from Extra import Armor
 
+from world import World
+
 class Battle:
 
 	def __init__(self,player):
@@ -51,14 +53,19 @@ class Battle:
 			self.xp_value += self.monster_list[i].xp_value
 
 
-	def battle_stats(self):
+	def battle_stats(self,here):
 		txt("Je bent aan het vechten:")
-
-		for i in range(self.difficulty):
-			MonsterNummer = i + 1
-			txt("Vijand " + str(MonsterNummer))
-			self.monster_list[i].print_stats()
-			print()
+		if "monster" in self.map[world.here]:
+			for monster in self.map[world.here]["monster"]:
+				txt("  "+ str(monster)+ " : ", end="")
+				txt(str(monster),"on encounter")
+				self.monster_list[i].print_stats()
+				print()
+		# for i in range(self.difficulty):
+		# 	MonsterNummer = i + 1
+		# 	txt("Vijand " + str(MonsterNummer))
+		# 	self.monster_list[i].print_stats()
+		# 	print()
 
 		txt("########################")
 		print()
@@ -168,7 +175,7 @@ class Battle:
 		while True:
 			print()
 			txt("######### BATTLE ROUND ##########")
-			self.battle_stats()
+			self.battle_stats(world.here)
 
 
 			player_action = ""

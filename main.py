@@ -86,7 +86,6 @@ battle_count = 0
 
 world = World(10)
 item = Item(0)
-# world.showStatus(player,here)
 
 
 
@@ -120,10 +119,10 @@ while player.hp>0:
 		battle_count +=1
 		txt("gevecht " + str(battle_count))
 	
-		#battle = Battle(player)
+		battle = Battle(player)
 		
 	
-		#battle.fight_battle()
+		battle.fight_battle(world.here)
 	
 		
 print()
