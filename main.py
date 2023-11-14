@@ -118,10 +118,10 @@ while player.hp>0:
 		battle_count +=1
 		txt("battle " + str(battle_count))
 	
-		battle = Battle(player)
+		#battle = Battle(player)
 		
 	
-		battle.fight_battle()
+		#battle.fight_battle()
 	
 		
 print()
