@@ -22,11 +22,11 @@ class Item():
 	def print_stats(self):
 		txt(str(self.item_type) + "level: "+ str(self.item_level))
 
-	
-		
+
+
 	def getitem(l, pitem, world, item):
 		global invitem #groetjes gio
-		
+
 		#check wheter the item is actually here
 		if "item" in world.map[world.here] and pitem in world.map[world.here]["item"]:
 			print("you found a "+ pitem + ".")
@@ -45,18 +45,18 @@ class Item():
 		if not item in player.inventory:
 			print("you can't use what you don't have...")
 			return
-	
+
 		# what to use the item on
 		print("on what or whom?")
 		target = input("> ").lower()
 		print()
-	
+
 		#chek whether the target is in the room
 		#use on yourself
 		if target in ["self","myself","me", "my","i"]:
-	
+
 			useitemonself(item)
-	
+
 		if "objects" in world.map[world.here]:
 			if target in world.map[world.here]["objects"]:
 				if target == "deur":
@@ -65,7 +65,7 @@ class Item():
 					txt("that is not a legal target.")
 			else:
 				txt("thats not here...")
-	
+
 # Class voor weapons
 class Weapon(Item):
 	def __init__ (self,item_level):

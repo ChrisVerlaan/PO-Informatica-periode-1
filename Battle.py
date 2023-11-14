@@ -52,11 +52,11 @@ class Battle:
 
 
 	def battle_stats(self):
-		txt("You are fighting:")
+		txt("Je bent aan het vechten:")
 
 		for i in range(self.difficulty):
 			MonsterNummer = i + 1
-			txt("Enemy " + str(MonsterNummer))
+			txt("Vijand " + str(MonsterNummer))
 			self.monster_list[i].print_stats()
 			print()
 
@@ -82,37 +82,39 @@ class Battle:
 
 			if loot_type == "Weapon":
 				item = Weapon(random.randint(self.player.level,self.player.level + 1))
-				txt("Yay! The monsters drop a new wepon!")
+				txt("Joepie! Het monster heeft een nieuw wapen achtergelaten!")
 			elif loot_type == "Armor":
 				item = Armor(random.randint(self.player.level,self.player.level + 1))
-				txt("Shiny! The monsters drop an armor!")  
+				txt("Wauw! Het monster heeft armor achtergelaten!")  
 
 			item.print_stats()
 			print()
-			txt("Your current stats are:")
+			txt("Jouw huidige statistieken zijn:")
 			self.player.print_stats()
 			print()
 
-			choice = xtx (imput("Do you want to equiq the new item? (Y/N)"))
+
+			choice = txt(input("Wil je je nieuwe voorwerp dragen? (Y/N)"))
+
 			choice = choice.lower()
 
 
 			item.print_stats()
 			print()
-			xtx("Your current stats are:")
+			txt("Jouw huidige statistieken zijn:")
 			self.player.print_stats()
 			print()
 
-			choice = xtx(imput("Do you want to equiq the new item? (Y/N)"))
+			choice = txt(input("Wil je je nieuwe voorwerp dragen? (Y/N)"))
 			choice = choice.lower()
 
 			if choice == "n":
-				txt("you leave the item on the ground and move on...")
+				txt("Je laat het voorwerp liggen en gaat verder....")
 			else:
 				self.player.equip_item(item)
-				txt("You equip the new item monsters beware!")
+				txt("Je draagt het nieuwe voorwerp; pas maar op monsters!")
 		else:
-			txt("You look real hard, but the monsters drop nothing...")
+			txt("Je kijkt grondig, maar je ziet niks liggen")
 
 
 	def monster_attack(self):
@@ -127,7 +129,7 @@ class Battle:
 		if len(self.monster_list) >1:
 			max_target = len(self.monster_list)
 			while target < 0 or target > max_target:
-				target = int(input("Which monster would you like to attack? (1 - " + str(max_target) +")",))
+				target = int(input("Welk monster wil je aanvallen? (1 - " + str(max_target) +")",))
 				target -= 1 
 
 		player_damage = self.player.attack()
@@ -135,32 +137,32 @@ class Battle:
 		if self.monster_list[target].hp >0:
 			self.monster_list[target].take_hit(player_damage)
 		else:
-			txt("You hit the dead monster. it is still dead...")
+			txt("Je raakt het monster. Hij is nog steeds dood.")
 	def player_heal(self):
 		if random.randint(1,100) <= 40:
 			heal_amount = random.randint(self.player.max_hp // 4 , self.player.max_hp // 3)
 			self.player.heal(heal_amount)
 		else:
-			txt("You tried to heal yourself, but the spell failed..")
+			txt("Je probeerde te healen, maar het mislukte...")
 
 
 	def player_run(self):
 		if random.randint(1,100) <= 25:
-			txt("You ran away as fast as you could and you've lost the monster")
+			txt("Je rent zo hard als je kan! Het monster is je kwijt.")
 			return True
 		else:
-			txt("You tried to run away, but the monster will not let you")
+			txt("Je probeert weg te rennen, maar het mislukte.")
 			return False
 
 
 	def player_quit(self):
-		txt("You give up....")
+		txt("Je geeft op....")
 		self.player.hp = 0
 
 
 	def fight_battle(self):
 		print()
-		txt("You are under attack")
+		txt("Je wordt aangevallen")
 
 
 		while True:
@@ -171,7 +173,7 @@ class Battle:
 
 			player_action = ""
 			while player_action not in ["S","F", "H","R","Q"]:
-				player_action = input(txt("What will you do? (S)tats, (F)ight,(H)eal,(R)un,(Q)uit")).upper()
+				player_action = input(txt("Wat ga je doen? (S)tats, (F)ight,(H)eal,(R)un,(Q)uit")).upper()
 
 			if player_action == "S":
 				self.player.print_stats()
@@ -195,9 +197,9 @@ class Battle:
 						self.monster_attack()
 					else:
 						txt("#############################")
-						txt("####### YOU killd it ########")
+						txt("####### YOU killed it #######")
 						txt("#############################")
-						txt('''                             .---'::'        `---.
+						print('''                             .---'::'        `---.
 														(::::::'              )
 														|`-----._______.-----'|
 														|              :::::::|

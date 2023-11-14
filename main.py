@@ -109,14 +109,16 @@ while player.hp>0:
 		showinventory()
 	
 	else:
-		txt("invalid action.")
+		txt("Dit kan niet.")
 		
 	if "enemies" in world.map[world.here]:
 		print()
+		txt("There is a bad thing in this room.")
+		txt("He is attacking you")
 		print("______")
 		print()
 		battle_count +=1
-		txt("battle " + str(battle_count))
+		txt("gevecht " + str(battle_count))
 	
 		#battle = Battle(player)
 		
@@ -125,7 +127,7 @@ while player.hp>0:
 	
 		
 print()
-print("You have fought",battle_count, "battles")
+print("Je hebt",battle_count, "keer gevochten")
 player.print_stats()
 print()
-print("Thanks for playing!")
+print("Bedankt voor het spelen!")

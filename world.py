@@ -64,7 +64,7 @@ class World():
 			},
 
 		}
-	
+
 	def showStatus(self ,here): 
 		print()
 		txt("###############################")
@@ -86,13 +86,13 @@ class World():
 			txt("You see these items:")
 			for item in self.map[here]["items"]:
 				txt("  "+ str(item))
-	
-	
-	
+
+
+
 		 #
 		print()
-	
-	
+
+
 	def goto(self, direction): 
 		if direction in self.map[self.here]["transitions"]:
 		 txt("you walk " + str(direction) + "." )
@@ -101,7 +101,7 @@ class World():
 		else:
 			txt("you can't go that way!")
 
-	
+
 	def removethingfromroom(world, item,typeofthing, thing, room=None):
 		if room == None: room = world.here
 			#check if anything is here
