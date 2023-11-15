@@ -119,7 +119,7 @@ while player.hp>0:
 		battle_count +=1
 		txt("gevecht " + str(battle_count))
 	
-		battle = Battle(player)
+		battle = Battle(player,enemies)
 		
 	
 		battle.fight_battle(world.here)

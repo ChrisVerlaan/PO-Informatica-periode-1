@@ -32,15 +32,15 @@ from world import World
 
 class Battle:
 
-	def __init__(self,player):
+	def __init__(self,player,enemies):
 		self.player = player
-		self.difficulty = random.randint(1,4)
+		# self.difficulty = random.randint(1,4)
 		self.monster_list = []
 		self.xp_value = 0
 		monster_types = ["Wolf", "Zwerver","Katholieke","Ijsbeer"]
 
-		for i in range(self.difficulty):
-			monster_choice = random.choice(monster_types)
+		for monster_choice in enemies:
+			# monster_choice = random.choice(monster_types)
 			if monster_choice == "Wolf":
 				self.monster_list.append(Wolf(self.player.level))   
 			elif monster_choice == "Zwerver":
@@ -55,12 +55,12 @@ class Battle:
 
 	def battle_stats(self,here):
 		txt("Je bent aan het vechten:")
-		if "monster" in self.map[world.here]:
-			for monster in self.map[world.here]["monster"]:
-				txt("  "+ str(monster)+ " : ", end="")
-				txt("je komt een " + str(monster) + " tegen")
-				self.monster_list[i].print_stats()
-				print()
+		# if "monster" in self.map[world.here]:
+		# 	for monster in self.map[world.here]["monster"]:
+		# 		txt("  "+ str(monster)+ " : ", end="")
+		# 		txt("je komt een " + str(monster) + " tegen")
+		# 		self.monster_list[i].print_stats()
+		# 		print()
 		# for i in range(self.difficulty):
 		# 	MonsterNummer = i + 1
 		# 	txt("Vijand " + str(MonsterNummer))
