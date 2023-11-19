@@ -71,15 +71,15 @@ class Battle:
 		print()
 
 
-	def generate_loot(self):
+	def generate_loot(self, monster):
 		loot = False
-		if self.difficulty == 1:
+		if monster.level == 1:
 			if random.randint(1,100) <= 25:
 				loot = True
-		elif self.difficulty == 2:
+		elif monster.level == 2:
 			if random.randint(1,100) <=40:
 				loot = True
-		elif self.difficulty == 3:
+		elif monster.level == 3:
 			if random.randint(1,100) <= 60:
 				loot = True
 
@@ -124,17 +124,16 @@ class Battle:
 			txt("Je kijkt grondig, maar je ziet niks liggen")
 
 
-	# def fight_enemy(self):
-	# 	for monster in self.monster_list:
-	# 		if monster.hp >0:
-	# 			monster_damage = monster.attack()
+
 	# 			self.player.take_hit(monster_damage)
 	def fight_enemy(self, enemies):
-		if enemy in self.monster_list:
+		if enemies in self.monster_list:
 				target = self.monster_list.index(enemies)
 				player_damage = self.player.attack()
 				if self.monster_list[target].hp > 0:
 						self.monster_list[target].take_hit(player_damage)
+						monster_damege = enemies.attack()
+						self.player.take_hit(monster_damage)
 				else:
 						txt("Je raakt het monster. Het is nog steeds dood.")
 
@@ -180,11 +179,11 @@ class Battle:
 		txt("Je wordt aangevallen")
 		
 
-
-		while True:
+		bat = True
+		while bat == True:
 			print()
 			txt("######### BATTLE ROUND ##########")
-			self.battle_stats(world.here)
+			self.battle_stats(here)
 
 
 			player_action = ""
@@ -210,7 +209,7 @@ class Battle:
 
 
 					if monster_alive > 0:
-						self.fight_enemy()
+						self.fight_enemy(monster_alive)
 					else:
 						txt("#############################")
 						txt("####### YOU killed it #######")
@@ -240,9 +239,9 @@ ____________________________________|  """|"____________________________________
 ''')
 
 						self.player.xp_gain(self.xp_value)
-						self.generate_loot()
+						self.generate_loot(self.monster_list[monster_alive])
 
-						break
+						bat = False
 			elif player_action == "H":
 				self.player_heal()
 				print()
@@ -252,8 +251,6 @@ ____________________________________|  """|"____________________________________
 			elif player_action == "R":
 				if self.player_run() == True:
 					break
-				else:
-					self.fight_enemy()
 
 			elif player_action == "Q":
 				self.player_quit()

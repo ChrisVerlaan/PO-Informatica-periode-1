@@ -16,7 +16,7 @@ from Functies import txt
 class World():
 	def __init__(self, size):
 		self.size = size
-		self.here = "Nederland"
+		self.here = "Duitsland"
 		self.map = {
 			"Nederland": {
 				"transitions": {

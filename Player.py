@@ -67,7 +67,7 @@ class Player:
 
 		if self.xp >= self.next_level_xp:
 			self.level +=1
-			self.xp -= self_level_xp
+			self.xp -= self.next_level_xp
 
 			self.next_level_xp = int(self.next_level_xp * 1.25)
 			self.max_hp = int(self.max_hp * 1.2)
@@ -80,7 +80,7 @@ class Player:
 			self.weapon = item
 		elif item.item_type == "armor":
 			self.armor = item
-			print_stats()
+			self.print_stats()
 
 	def print_stats(self):
 		print()
