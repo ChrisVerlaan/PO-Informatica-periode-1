@@ -39,7 +39,7 @@ class Battle:
 		self.xp_value = 0
 		monster_types = ["Wolf", "Zwerver","Katholieke","Ijsbeer"]
 
-		for monster_choice in enemies:
+		for i, monster_choice in enumerate(enemies):
 			# monster_choice = random.choice(monster_types)
 			if monster_choice == "Wolf":
 				self.monster_list.append(Wolf(self.player.level))   
@@ -124,12 +124,19 @@ class Battle:
 			txt("Je kijkt grondig, maar je ziet niks liggen")
 
 
-	def monster_attack(self):
-		for monster in self.monster_list:
-			if monster.hp >0:
-				monster_damage = monster.attack()
-				self.player.take_hit(monster_damage)
-
+	# def fight_enemy(self):
+	# 	for monster in self.monster_list:
+	# 		if monster.hp >0:
+	# 			monster_damage = monster.attack()
+	# 			self.player.take_hit(monster_damage)
+	def fight_enemy(self, enemy):
+		if enemy in self.monster_list:
+				target = self.monster_list.index(enemy)
+				player_damage = self.player.attack()
+				if self.monster_list[target].hp > 0:
+						self.monster_list[target].take_hit(player_damage)
+				else:
+						txt("Je raakt het monster. Het is nog steeds dood.")
 
 	def player_attack(self):
 		target = -1
@@ -167,9 +174,10 @@ class Battle:
 		self.player.hp = 0
 
 
-	def fight_battle(self):
+	def fight_battle(self,here):
 		print()
 		txt("Je wordt aangevallen")
+		self.battle_stats(here)
 
 
 		while True:
@@ -201,7 +209,7 @@ class Battle:
 
 
 					if monster_alive > 0:
-						self.monster_attack()
+						self.fight_enemy()
 					else:
 						txt("#############################")
 						txt("####### YOU killed it #######")
@@ -237,14 +245,14 @@ ____________________________________|  """|"____________________________________
 			elif player_action == "H":
 				self.player_heal()
 				print()
-				self.monster_attack()
+				self.fight_enemy()
 
 
 			elif player_action == "R":
 				if self.player_run() == True:
 					break
 				else:
-					self.monster_attack()
+					self.fight_enemy()
 
 			elif player_action == "Q":
 				self.player_quit()

@@ -34,7 +34,7 @@ class Monster():
 	
 	def attack(self):
 		damage = random.randint(self.min_damage,self.max_damage)
-		txt(str(self.monster_type) +  " valt aan voor " + str(damage)+ " damage ")
+		txt(str(self.monster_type) +  " valt aan voor " + str(damage)+ " schade.")
 		return damage
 	
 	def take_hit(self, damage):
@@ -105,7 +105,7 @@ class Katholieke(Monster):
 		damage = random.randint(self.min_damage, self.max_damage)
 	
 		if random.randint(1,30) <= self.crit_chance:
-			txt(str(self.monster_type)+ " makes a critical hit! ")
+			txt(str(self.monster_type)+ " brengt kritische schade toe! ")
 			damage *= 4
 	
 		return damage
