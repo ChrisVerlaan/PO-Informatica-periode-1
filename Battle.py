@@ -129,9 +129,9 @@ class Battle:
 	# 		if monster.hp >0:
 	# 			monster_damage = monster.attack()
 	# 			self.player.take_hit(monster_damage)
-	def fight_enemy(self, enemy):
+	def fight_enemy(self, enemies):
 		if enemy in self.monster_list:
-				target = self.monster_list.index(enemy)
+				target = self.monster_list.index(enemies)
 				player_damage = self.player.attack()
 				if self.monster_list[target].hp > 0:
 						self.monster_list[target].take_hit(player_damage)
