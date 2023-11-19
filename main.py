@@ -123,7 +123,7 @@ while player.hp>0:
 		battle = Battle(player,enemies)
 		
 	
-		battle.fight_battle(world.here)
+		battle.fight_battle(world.map[world.here])
 	
 		
 print()
