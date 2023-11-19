@@ -175,9 +175,10 @@ class Battle:
 
 
 	def fight_battle(self,here):
+
 		print()
 		txt("Je wordt aangevallen")
-		self.battle_stats(here)
+		
 
 
 		while True:

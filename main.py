@@ -72,9 +72,9 @@ print('''             _._                                        _._
 print()
 print()
 txt('''Commands --> 
-   go [directions] 
-	 get [item] 
-	 use [item] ''')
+   ga [directions] 
+	 pak [item] 
+	 gebruik [item] ''')
 print()
 print()
 input (txt("Druk op enter om te beginnen..."))
@@ -94,14 +94,14 @@ while player.hp>0:
 	world.showStatus(world.here)
 	action = input('>')
 	action = action.lower().split(" ",1)
-	if action[0] == "go":
+	if action[0] == "ga":
 		world.goto(action[1]) 
 		player.showinventory()
-	elif action[0] == "get":
+	elif action[0] == "pak":
 		item.getitem(action[1], world, item)
 		print(str(item.invitem))
 		player.addtoinventory(player, str(item.invitem))
-	elif action[0] == "use":
+	elif action[0] == "gebruik":
 		item.useitem(player, action[1], world)
 		
 	elif action[0] == "stats":
